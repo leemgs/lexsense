@@ -1,0 +1,12 @@
+random_seed: 42
+paths: {raw_dir: data/raw, processed_dir: data/processed, models_dir: models, logs_dir: logs}
+taxonomy: {labels: {governance: 0, contract: 1, lawsuit: 2, asset: 3}}
+training:
+  default_model: distilbert-base-uncased
+  summarizer_model: t5-small
+  num_runs: 3
+  tasks:
+    governance: {lr: 2e-5, batch_size: 16, epochs: 5, max_seq_len: 512}
+    contract:   {lr: 1e-5, batch_size: 8,  epochs: 6, max_seq_len: 1024}
+    lawsuit:    {lr: 2e-5, batch_size: 16, epochs: 5, max_seq_len: 512}
+    asset:      {lr: 2e-5, batch_size: 32, epochs: 4, max_seq_len: 512}
