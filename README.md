@@ -1,6 +1,6 @@
 # Automated AI Trend Sensing — Reproducibility Guide
 
-본 문서는  **가장 빠르게 재현 가능한 절차(필수만)**를 정리한 가이드입니다.  
+본 문서는 가장 빠르게 재현 가능한 절차(필수만)를 정리한 가이드입니다.  
 
 repro_v1 (full) + repro_v2 (expanded)
 
