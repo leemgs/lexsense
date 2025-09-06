@@ -1,0 +1,7 @@
+torch>=2.2.0
+transformers>=4.42.0
+sentence-transformers>=3.0.0
+scikit-learn>=1.4.0
+numpy>=1.26.0
+pandas>=2.2.0
+rapidfuzz>=3.7.0
