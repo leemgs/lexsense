@@ -1,0 +1,87 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      run_real_nli:
+        description: "Run real NLI (downloads models; slower)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+jobs:
+  unit-mocked:
+    name: Unit (mocked NLI)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # 테스트 런타임에 필요한 최소 패키지 보강 (안전망)
+          pip install pytest numpy scikit-learn rapidfuzz
+
+      - name: Run tests (mocked)
+        env:
+          # 실제 모델 다운로드 방지(모킹 기반 빠른 테스트)
+          TRANSFORMERS_OFFLINE: "1"
+        run: |
+          pytest -q
+
+  real-nli:
+    name: Integration (real NLI)
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.run_real_nli == 'true' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies (with transformers)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt || true
+          pip install pytest torch transformers sentence-transformers numpy scikit-learn rapidfuzz
+
+      - name: Warm up HF models (optional)
+        run: |
+          python - <<'PY'
+          from transformers import AutoTokenizer, AutoModelForSequenceClassification
+          for m in ["facebook/bart-large-mnli", "joeddav/xlm-roberta-large-xnli"]:
+              try:
+                  AutoTokenizer.from_pretrained(m)
+                  AutoModelForSequenceClassification.from_pretrained(m)
+                  print("Downloaded:", m)
+              except Exception as e:
+                  print("Skip:", m, e)
+          PY
+
+      - name: Run tests (no mocking)
+        env:
+          TRANSFORMERS_OFFLINE: "0"
+        run: |
+          # 모킹 제거 후 통합 테스트를 별도 스위치/마커로 운영하고 싶다면 아래처럼 마커 사용 권장
+          # pytest -q -m "integration"
+          pytest -q
