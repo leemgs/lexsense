@@ -1,6 +1,7 @@
 
 # LexSense — Reproducibility Guide
-![LexSense](./lexsense.png)
+<img src="./lexsense.png" alt="LexSense" width="200" height="200">
+
 
 This document summarizes the **minimal essential steps** for the fastest possible reproduction.
 
