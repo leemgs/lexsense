@@ -2,7 +2,6 @@
 # LexSense — Reproducibility Guide
 <img src="./lexsense.png" alt="LexSense" width="200" height="200">
 
-
 This document summarizes the **minimal essential steps** for the fastest possible reproduction: `repro_v1 (full)` + `repro_v2 (expanded)`
 
 The rapid growth of generative AI has intensified demands for governance and compliance. Existing monitoring tools-manual reports, keyword alerts, and static trackers-cannot keep pace with dynamic, global regulatory changes. We introduce LexSense, a unified framework combining (1) real-time change detection, (2) semantic data acquisition, and (3) LLM-driven reporting. A novel taxonomy enables fine-grained classification of governance documents, contracts, lawsuits, and AI asset releases across jurisdictions and languages. Experiments on EU, U.S., and Korean datasets achieve 91\% accuracy, 82\% less analyst effort, and 70% faster reporting than manual baselines. Cross-lingual tests and ablations confirm robustness. We release full code, datasets, and Dockerized pipelines for reproducibility. Beyond technical gains, LexSense integrates fairness-aware tuning, bias audits, and privacy-preserving monitoring. Together, these contributions establish AI Governance Informatics as a new research direction, offering both a deployable compliance infrastructure and a conceptual foundation for scalable, transparent, and responsible AI governance.
