@@ -1,7 +1,6 @@
 
-# Automated AI Trend Sensing — Reproducibility Guide
-
-![Automated AI Trend Sensing - Falcon](./falcon.png)
+# LexSense — Reproducibility Guide
+![LexSense](./lexsense.png)
 
 This document summarizes the **minimal essential steps** for the fastest possible reproduction.
 
