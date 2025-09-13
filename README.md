@@ -3,9 +3,7 @@
 <img src="./lexsense.png" alt="LexSense" width="200" height="200">
 
 
-This document summarizes the **minimal essential steps** for the fastest possible reproduction.
-
-`repro_v1 (full)` + `repro_v2 (expanded)`
+This document summarizes the **minimal essential steps** for the fastest possible reproduction: `repro_v1 (full)` + `repro_v2 (expanded)`
 
 The rapid growth of generative AI has intensified demands for governance and compliance. Existing monitoring tools---manual reports, keyword alerts, and static trackers---cannot keep pace with dynamic, global regulatory changes. We introduce LexSense, a unified framework combining (1) real-time change detection, (2) semantic data acquisition, and (3) LLM-driven reporting. A novel taxonomy enables fine-grained classification of governance documents, contracts, lawsuits, and AI asset releases across jurisdictions and languages. Experiments on EU, U.S., and Korean datasets achieve 91\% accuracy, 82\% less analyst effort, and 70% faster reporting than manual baselines. Cross-lingual tests and ablations confirm robustness. We release full code, datasets, and Dockerized pipelines for reproducibility. Beyond technical gains, LexSense integrates fairness-aware tuning, bias audits, and privacy-preserving monitoring. Together, these contributions establish AI Governance Informatics as a new research direction, offering both a deployable compliance infrastructure and a conceptual foundation for scalable, transparent, and responsible AI governance.
 
@@ -13,7 +11,7 @@ The rapid growth of generative AI has intensified demands for governance and com
 
 ---
 
-## 0) Preparation
+## 1) Preparation
 
 ```bash
 unzip ai_trend_sensing_repro_full.zip
@@ -28,7 +26,7 @@ export TOKENIZERS_PARALLELISM=false
 
 ---
 
-## 1) v1: Full Pipeline (Recommended Default Route)
+## 2) v1: Full Pipeline (Recommended Default Route)
 
 ```bash
 cd repro_v1
@@ -58,7 +56,7 @@ python apps/report.py --input data/processed/test.jsonl --out reports/test_repor
 
 ---
 
-## 2) v2: Extended Analysis (ECE, Drift, Explainability, HITL)
+## 3) v2: Extended Analysis (ECE, Drift, Explainability, HITL)
 
 ```bash
 cd ../repro_v2
@@ -98,7 +96,7 @@ python tasks/report_gen.py --input data/processed/test.jsonl   --out reports/tes
 
 ---
 
-## 3) Makefile (One-click Execution When Busy)
+## 4) Makefile (One-click Execution When Busy)
 
 From within each folder:
 
@@ -112,7 +110,7 @@ make toy prep train eval ece drift explain human report
 
 ---
 
-## 4) API (Optional)
+## 5) API (Optional)
 
 ```bash
 # v1
@@ -127,7 +125,7 @@ uvicorn apps.api:app --host 0.0.0.0 --port 8000
 
 ---
 
-## 5) Docker (Optional)
+## 6) Docker (Optional)
 
 ```bash
 # v1
