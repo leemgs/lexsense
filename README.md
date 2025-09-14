@@ -17,7 +17,6 @@ LexSense is a modular, end-to-end framework for **regulatory monitoring** inspir
 | **LLM Reporter**      | Generates concise, structured summaries using GPT-4 (optional) or HuggingFace summarization models | OpenAI GPT-4 API, BART, T5 Summarizer  |
 | **Visualization**     | Streamlit dashboard for analysts to browse summaries, entities, and categories with simple RBAC demo | Streamlit, Plotly, RBAC Mock           |
 
-
 ---
 
 ## Quick Start (Docker Compose)
