@@ -1,0 +1,1 @@
+The European Parliament passed the AI Act on June 14, 2023, introducing strict requirements for high-risk AI systems. The Act aims to ensure transparency and accountability for AI developers.

@@ -1,0 +1,1 @@
+OpenAI released the GPT-5 model on March 1, 2025, which features advanced reasoning capabilities and improved efficiency. The release notes emphasize steps taken to align the model with safety guidelines.

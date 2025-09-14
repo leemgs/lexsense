@@ -1,0 +1,1 @@
+A contract between AlphaCorp and BetaInc includes a clause requiring compliance with the new Data Privacy Act. The clause states that both parties must implement GDPR-aligned data protection measures.

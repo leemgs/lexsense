@@ -1,163 +1,111 @@
+# LexSense (Reproducible Demo)
 
-# LexSense — Reproducibility Guide
-<img src="./lexsense.png" alt="LexSense" width="200" height="200">
+LexSense is a modular, end-to-end framework for **regulatory monitoring** inspired by the IJCAI 2026 draft paper. It integrates:
 
-This document summarizes the **minimal essential steps** for the fastest possible reproduction: `repro_v1 (full)` + `repro_v2 (expanded)`
+1) **Change Detector** – simulates real-time detection of updates across government portals, court filings, and model repositories (via Kafka or a simulated stream).
+2) **Data Collector** – fetches original documents (policy, contract, lawsuit, and AI model release notes) via mock APIs or local files.
+3) **Processing & Analysis** – classifies documents into a domain taxonomy and extracts entities using Transformer-based NLP pipelines.
+4) **LLM Reporter** – generates concise, structured summaries using GPT-4 (optional) or HuggingFace summarization models.
+5) **Visualization** – a Streamlit dashboard for analysts to browse summaries, entities, and categories with simple RBAC demo.
 
-The rapid growth of generative AI has intensified demands for governance and compliance. Existing monitoring tools-manual reports, keyword alerts, and static trackers-cannot keep pace with dynamic, global regulatory changes. We introduce LexSense, a unified framework combining (1) real-time change detection, (2) semantic data acquisition, and (3) LLM-driven reporting. A novel taxonomy enables fine-grained classification of governance documents, contracts, lawsuits, and AI asset releases across jurisdictions and languages. Experiments on EU, U.S., and Korean datasets achieve 91\% accuracy, 82\% less analyst effort, and 70% faster reporting than manual baselines. Cross-lingual tests and ablations confirm robustness. We release full code, datasets, and Dockerized pipelines for reproducibility. Beyond technical gains, LexSense integrates fairness-aware tuning, bias audits, and privacy-preserving monitoring. Together, these contributions establish AI Governance Informatics as a new research direction, offering both a deployable compliance infrastructure and a conceptual foundation for scalable, transparent, and responsible AI governance.
-
-
+This repository provides a **reproducible demo** with Docker support (including Compose), automated tests, linting, and a CI workflow to build the Docker image.
 
 ---
 
-## 1) Preparation
+## Quick Start (Docker Compose)
+
+Prereqs: Docker and Docker Compose installed.
 
 ```bash
-unzip ai_trend_sensing_repro_full.zip
-cd ai_trend_sensing_repro_full
-
-# Common recommendations (for full reproducibility)
-export PYTHONHASHSEED=0
-export TOKENIZERS_PARALLELISM=false
-# After the first run, once HF models are downloaded, offline mode is possible
-# export TRANSFORMERS_OFFLINE=1
+# from the repository root
+docker-compose up --build
 ```
 
+Services launched:
+- **Zookeeper** (2181) & **Kafka** (9092)
+- **Backend** (FastAPI) on `http://localhost:8000`
+- **Frontend** (Streamlit) on `http://localhost:8501`
+
+Open the dashboard at `http://localhost:8501`. Use password `lexsense` in the demo login.
+The backend simulates change events, collects sample documents, runs NLP processing, and produces LLM-style summaries.
+
+> Note: This demo ships with small sample texts under `lexsense/sample_data/`. In production, connect real crawlers/APIs and persist data in a database.
+
 ---
 
-## 2) v1: Full Pipeline (Recommended Default Route)
+## Local Development (without Docker)
 
 ```bash
-cd repro_v1
-python -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# Data preparation
-python tools/harvest.py --toy
-python tools/preprocess.py
+# (Start Zookeeper/Kafka locally or via Docker if you want full streaming.)
+# For basic demo, Kafka can be skipped. The detector will still simulate events.
 
-# Training/Evaluation
-python tasks/train.py --task all --epochs 5 --batch 16 --lr 2e-5 --max_seq_len 512
-python tasks/eval.py --task all
+# Start backend
+uvicorn lexsense.api:app --reload
 
-# Baseline (Ablation)
-python tasks/baseline_logreg.py --task all
-
-# Report generation (optional)
-python apps/report.py --input data/processed/test.jsonl --out reports/test_reports.jsonl --summarizer t5-small
+# In another terminal (same venv) start the dashboard
+streamlit run lexsense/dashboard.py
 ```
 
-### ✅ v1 Outputs (Checklist)
-
-* Model/Metrics: `models/all_distilbert-base-uncased/test_metrics.json`
-* Preprocessed data: `data/processed/{train,dev,test}.jsonl`
-* Reports: `reports/test_reports.jsonl`
-
----
-
-## 3) v2: Extended Analysis (ECE, Drift, Explainability, HITL)
+Open `http://localhost:8501`. By default the dashboard expects `BACKEND_URL` env var when outside Docker. For local dev:
 
 ```bash
-cd ../repro_v2
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-
-# Same data preparation
-python tools/harvest.py --toy
-python tools/preprocess.py
-
-# Training/Evaluation
-python tasks/train_transformer.py --task all --epochs 5 --batch 16 --lr 2e-5 --max_seq_len 512
-python tasks/eval.py --task all
-
-# (1) Calibration / ECE
-python tasks/calibration_ece.py --model_dir models/all_distilbert-base-uncased   --split data/processed/test.jsonl --plot figures/ece_curve.pdf
-
-# (2) Concept drift (simulation plot)
-python tasks/continual.py --plot figures/concept_drift_sim.pdf
-
-# (3) Evidence-linked explainability (evidence spans)
-python tasks/explainability.py --split data/processed/test.jsonl   --out reports/evidence_linked.jsonl
-
-# (4) Human-in-the-loop (review only low-confidence cases)
-python tasks/human_loop.py --model_dir models/all_distilbert-base-uncased   --split data/processed/test.jsonl --threshold 0.75
-
-# (5) Report generation (summarization)
-python tasks/report_gen.py --input data/processed/test.jsonl   --out reports/test_reports.jsonl --summarizer t5-small
+export BACKEND_URL=http://localhost:8000
+streamlit run lexsense/dashboard.py
 ```
-
-### ✅ v2 Outputs (Checklist)
-
-* `figures/ece_curve.pdf` (Reliability diagram)
-* `figures/concept_drift_sim.pdf` (Drift curve)
-* `reports/evidence_linked.jsonl` (Results with evidence spans)
-* `reports/test_reports.jsonl` (Summary report)
 
 ---
 
-## 4) Makefile (One-click Execution When Busy)
+## Configuration
 
-From within each folder:
+- **OPENAI_API_KEY** (optional): if set, `reporter.py` will try GPT-4 for summarization; otherwise a HuggingFace model is used (`sshleifer/distilbart-cnn-6-6`).
+- **KAFKA_BROKER** (optional): e.g., `kafka:9092`. If not set, the Change Detector still returns simulated events.
+
+---
+
+## Tests & Lint
 
 ```bash
-# v1
-make toy prep train eval baseline
+pytest -q
+flake8 .
+```
 
-# v2
-make toy prep train eval ece drift explain human report
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs tests, lint, and builds a Docker image on each push/PR to `main` or `master`.
+
+---
+
+## Project Structure
+
+```
+lexsense/
+  __init__.py
+  changedetector.py
+  datacollector.py
+  processing.py
+  reporter.py
+  api.py
+  dashboard.py
+  sample_data/
+    doc1.txt
+    doc2.txt
+    doc3.txt
+    doc4.txt
+tests/
+  test_detector.py
+  test_processing.py
+  test_reporter.py
+Dockerfile
+docker-compose.yml
+requirements.txt
+.github/workflows/ci.yml
 ```
 
 ---
 
-## 5) API (Optional)
+## Notes & Limitations
 
-```bash
-# v1
-cd repro_v1 && source .venv/bin/activate
-uvicorn apps.api:app --host 0.0.0.0 --port 8000
-# Browser: http://localhost:8000/items?split=test&limit=5
-
-# v2
-cd repro_v2 && source .venv/bin/activate
-uvicorn apps.api:app --host 0.0.0.0 --port 8000
-```
-
----
-
-## 6) Docker (Optional)
-
-```bash
-# v1
-cd repro_v1
-docker build -t trend-repro-v1 -f docker/Dockerfile .
-docker run --rm -it -p 8000:8000 -v $PWD:/workspace trend-repro-v1 /bin/bash
-
-# v2
-cd ../repro_v2
-docker build -t trend-repro-v2 -f docker/Dockerfile .
-docker run --rm -it -p 8000:8000 -v $PWD:/workspace trend-repro-v2 /bin/bash
-```
-
----
-
-## ⚠️ Common Issues (Quick Fixes)
-
-* **Checkpoint download**: Hugging Face models are downloaded on the first run.
-  In firewall/proxy environments, download manually and set `TRANSFORMERS_OFFLINE=1`.
-* **Out of Memory (OOM)**: Reduce `--batch` and adjust `--max_seq_len` to 256–384.
-* **Warning messages**: Set `TOKENIZERS_PARALLELISM=false`.
-* **Windows environment**: Use `.\.venv\Scripts\activate` instead of `source .venv/bin/activate`.
-
----
-## Related Work  
-아래 표는 AI·법률·윤리·헬스케어 등 다양한 트랙에서 발표된 최신 연구들을 요약하고, LEXSense와의 차별점 및 경쟁력을 비교한 Related Work 정리입니다.
-
-| 제목 | 저자 수 | 1저자 소속 | 트랙(Track) | 초록 요약 | 강점 | 약점 | LEXSense 대비 차별점/경쟁력 |
-| ---- | ------- | ---------- | ----------- | -------- | ---- | ---- | --------------------------- |
-| ReportParse: A Unified NLP Tool for Extracting Document Structure and Semantics of Corporate Sustainability Reporting | 5명 내외 | University of Amsterdam (예시) | Main Track – NLP for Social Good | ESG/지속가능성 보고서에서 표, 본문, 메타데이터를 구조화·의미 추출하는 NLP 툴킷. | 도메인 특화 구조화 성능, 실데이터 적용. | 범용성 한계, 다국적 규제 적용 미비. | LexSense는 다국적 규제 감시/LLM 보고까지 엔드투엔드 확장. |
-| LEEC for Judicial Fairness: A Legal Element Extraction Dataset with Extensive Extra-Legal Labels | 6명 내외 | Tsinghua University (예시) | AI & Law Track | 법률 문서에서 법적·비법적 요소를 레이블링한 대규모 데이터셋. | 데이터셋 기여, 공정성 연구 기반 제공. | 모델·시스템 구현 부족. | LexSense는 데이터셋 → 시스템 운영 → 실시간 보고로 이어지는 실무 배치 가능성 제시. |
-| FactCHD: Benchmarking Fact-Conflicting Hallucination Detection | 7명 내외 | Stanford University (예시) | Main Track – Responsible AI | LLM 환각 검출을 위한 사실충돌 벤치마크 구축. | 환각 유형 체계화, 벤치마크 표준 제공. | 운영 워크플로우 통합 미비. | LexSense는 FactCHD형 지표를 실무 Factuality Audit 프로토콜로 통합. |
-| Down the Toxicity Rabbit Hole: A Framework to Bias Audit Large Language Models | 5명 내외 | ETH Zürich (예시) | AI, Ethics & Society Track | LLM 바이어스 탐지·감사 프레임워크 제안. | 프레임워크 완성도, 다양한 바이어스 유형 분석. | 실제 시스템 적용 사례 부족. | LexSense는 규제 모니터링 + 바이어스 감사 동시 적용, 배치 친화적. |
-| Data Ownership and Privacy in Personalized AI Models in Assistive Healthcare | 6명 내외 | KAIST (예시) | AI & Healthcare Track | 개인화 AI에서 데이터 소유권·프라이버시 문제 분석. | 윤리적 기여, 헬스케어 적용 사례. | 도메인 한정(헬스케어). | LexSense는 Privacy-by-Design을 규제 모니터링 워크플로우 전반에 내장. |
-| ComVas: Contextual Moral Values Alignment System | 4명 내외 | University of Oxford (예시) | AI, Ethics & Society Track | AI 시스템의 맥락적 가치·규범 정렬을 위한 아키텍처. | 윤리/철학적 기여, 가치정렬 모델링. | 실용성·데이터 기반 부족. | LexSense는 규제 준수 + 가치정렬을 동시 추구하며 실제 데이터셋 성능 검증까지 제시. |
-| Real-time Multi-modal Object Detection and Tracking on Edge for Regulatory Compliance Monitoring (Demo) | 3명 내외 | NUS (예시) | Demo Track | 영상 기반 실시간 규정 준수 감시 시스템(데모). | 실시간성·엣지 배치 사례. | 텍스트/정책 문서 적용 불가. | LexSense는 정책/규제 문서 처리에 특화되어 다국적 법적 환경 대응. |
+- This is a **demo** designed to be lightweight and reproducible. Replace the simulated parts with real crawlers, APIs, and databases for production.
+- Model downloads (NER, summarization) may take time and network access on first run. For fully offline use, pre-bake models into the image or mount a local model cache.
+- The RBAC and privacy features are illustrative only. Implement real authN/authZ, secure storage, and PII handling before any real deployment.
