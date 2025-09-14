@@ -22,6 +22,7 @@ LexSense is a modular, end-to-end framework for **regulatory monitoring** inspir
 
 ## Quick Start (Docker Compose)
 This repository provides a **reproducible demo** with Docker support (including Compose), automated tests, linting, and a CI workflow to build the Docker image.
+The project is containerized via Docker and equipped with a CI pipeline for reproducibility and scalability, making it suitable for both research experiments and practical deployments.
 
 Prereqs: Docker and Docker Compose installed.
 
@@ -87,29 +88,36 @@ GitHub Actions workflow (`.github/workflows/ci.yml`) runs tests, lint, and build
 
 ## Project Structure
 
-```
-lexsense/
-  __init__.py
-  changedetector.py
-  datacollector.py
-  processing.py
-  reporter.py
-  api.py
-  dashboard.py
-  sample_data/
-    doc1.txt
-    doc2.txt
-    doc3.txt
-    doc4.txt
-tests/
-  test_detector.py
-  test_processing.py
-  test_reporter.py
-Dockerfile
-docker-compose.yml
-requirements.txt
-.github/workflows/ci.yml
-```
+This structure outlines the **LexSense project**, organizing core modules, sample data, tests, and deployment configurations into a clear, modular, and reproducible framework.
+
+
+lexsense/                  # Core package
+│── __init__.py
+│── changedetector.py      # Module for detecting real-time updates
+│── datacollector.py       # Module for collecting documents
+│── processing.py          # NLP-based classification & entity extraction
+│── reporter.py            # LLM-powered summarization and reporting
+│── api.py                 # Lightweight API layer
+│── dashboard.py           # Streamlit-based visualization/dashboard
+│
+├── sample_data/           # Example input documents
+│   ├── doc1.txt
+│   ├── doc2.txt
+│   ├── doc3.txt
+│   └── doc4.txt
+│
+tests/                     # Unit tests
+│── test_detector.py
+│── test_processing.py
+│── test_reporter.py
+│
+Dockerfile                 # Container image definition
+docker-compose.yml         # Multi-service orchestration
+requirements.txt           # Python dependencies
+.github/
+└── workflows/
+    └── ci.yml             # Continuous Integration (CI) pipeline
+
 
 ---
 
