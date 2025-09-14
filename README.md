@@ -24,7 +24,7 @@ LexSense is a modular, end-to-end framework for **regulatory monitoring** inspir
 This repository provides a **reproducible demo** with Docker support (including Compose), automated tests, linting, and a CI workflow to build the Docker image.
 The project is containerized via Docker and equipped with a CI pipeline for reproducibility and scalability, making it suitable for both research experiments and practical deployments.
 
-Prereqs: Docker and Docker Compose installed.
+- Prereqs: Docker and Docker Compose installed.
 
 ```bash
 # from the repository root
@@ -90,7 +90,7 @@ GitHub Actions workflow (`.github/workflows/ci.yml`) runs tests, lint, and build
 
 This structure outlines the **LexSense project**, organizing core modules, sample data, tests, and deployment configurations into a clear, modular, and reproducible framework.
 
-
+```bash
 lexsense/                  # Core package
 │── __init__.py
 │── changedetector.py      # Module for detecting real-time updates
@@ -117,7 +117,7 @@ requirements.txt           # Python dependencies
 .github/
 └── workflows/
     └── ci.yml             # Continuous Integration (CI) pipeline
-
+```
 
 ---
 
