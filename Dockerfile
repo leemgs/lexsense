@@ -1,9 +1,6 @@
-# PyTorch with CUDA runtime base image (suitable for GPU if available)
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+FROM python:3.11-slim
 WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
-EXPOSE 8000 8501
+RUN pip install --no-cache-dir -r requirements.txt
+ENV PYTHONPATH=/app/src
+CMD ["python", "-m", "lexsense.train_classifier", "--data_dir", "data/govsense_1k", "--out_dir", "data/govsense_1k/baseline_lr"]

@@ -1,127 +1,71 @@
-# LexSense (Reproducible Demo)
+# LexSense (Starter) — Reproducible Framework & GovSense-1k Benchmark
 
-<img src="./imgs/lexsense.png" border=0 alt="LexSense" width="150" height="150">
+This repository is a **reproducible starter kit** for the LexSense framework described in the paper.
+It includes:
 
-## Abstract
-The rapid growth of generative AI has intensified demands for governance and compliance. Existing monitoring tools-manual reports, keyword alerts, and static trackers-cannot keep pace with dynamic, global regulatory changes. We introduce **LexSense**, a unified framework combining (1) real-time change detection, (2) semantic data acquisition, and (3) LLM-driven reporting. A novel taxonomy enables fine-grained classification of governance documents, contracts, lawsuits, and AI asset releases across jurisdictions and languages. Experiments on EU, U.S., and Korean datasets achieve 91\% accuracy, 82\% less analyst effort, and 70% faster reporting than manual baselines. Cross-lingual tests and ablations confirm robustness. We release full code, datasets, and Dockerized pipelines for reproducibility. Beyond technical gains, LexSense integrates fairness-aware tuning, bias audits, and privacy-preserving monitoring. Together, these contributions establish AI Governance Informatics as a new research direction, offering both a deployable compliance infrastructure and a conceptual foundation for scalable, transparent, and responsible AI governance.
+- **Synthetic benchmark**: `GovSense-1k` (1,200 items; Governance/Contract/Lawsuit/Asset = 400/300/250/250) with multilingual coverage.
+- **Baselines**: TF‑IDF + Logistic Regression for 4‑way classification.
+- **Utilities**: Concept‑drift (PSI) utility, factuality‑audit stubs, LLM reporter stub.
+- **Dockerfile** & scripts for quick start.
 
----
+> Paper reference: LexSense (AI Governance Informatics). See the uploaded manuscript for task definition, dataset proportions, and evaluation outline.
 
-## Introduction
-LexSense is a modular, end-to-end framework for **regulatory monitoring** inspired by the IJCAI 2026 draft paper. It integrates:
-| Module                | Key Function                                                                 | Example Tools/Implementation           |
-|-----------------------|-------------------------------------------------------------------------------|----------------------------------------|
-| **Change Detector**   | Detects real-time updates from government portals, court filings, and model repositories (via Kafka or simulated streams) | Apache Kafka, WebSocket, Mock Stream   |
-| **Data Collector**    | Fetches original documents (policies, contracts, lawsuits, AI model release notes) via mock APIs or local files | REST API, BeautifulSoup, Local Loader  |
-| **Processing & Analysis** | Classifies documents into a domain taxonomy and extracts entities using Transformer-based NLP pipelines | HuggingFace Transformers, spaCy        |
-| **LLM Reporter**      | Generates concise, structured summaries using GPT-4 (optional) or HuggingFace summarization models | OpenAI GPT-4 API, BART, T5 Summarizer  |
-| **Visualization**     | Streamlit dashboard for analysts to browse summaries, entities, and categories with simple RBAC demo | Streamlit, Plotly, RBAC Mock           |
-
----
-
-## Quick Start (Docker Compose)
-This repository provides a **reproducible demo** with Docker support (including Compose), automated tests, linting, and a CI workflow to build the Docker image.
-The project is containerized via Docker and equipped with a CI pipeline for reproducibility and scalability, making it suitable for both research experiments and practical deployments.
-
-- Prereqs: Docker and Docker Compose installed.
+## Quick Start
 
 ```bash
-# from the repository root
-docker-compose up --build
-```
-
-Services launched:
-- **Zookeeper** (2181) & **Kafka** (9092)
-- **Backend** (FastAPI) on `http://localhost:8000`
-- **Frontend** (Streamlit) on `http://localhost:8501`
-
-Open the dashboard at `http://localhost:8501`. Use password `lexsense` in the demo login.
-The backend simulates change events, collects sample documents, runs NLP processing, and produces LLM-style summaries.
-
-> Note: This demo ships with small sample texts under `lexsense/sample_data/`. In production, connect real crawlers/APIs and persist data in a database.
-
----
-
-## Local Development (without Docker)
-
-```bash
-python3 -m venv .venv && source .venv/bin/activate
+# 1) Create a virtualenv and install dependencies
+python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 
-# (Start Zookeeper/Kafka locally or via Docker if you want full streaming.)
-# For basic demo, Kafka can be skipped. The detector will still simulate events.
+# 2) (Optional) Regenerate the synthetic GovSense-1k dataset
+python scripts/generate_govsense_1k.py --out data/govsense_1k
 
-# Start backend
-uvicorn lexsense.api:app --reload
+# 3) Train a baseline
+python -m lexsense.train_classifier --data_dir data/govsense_1k --out_dir data/govsense_1k/baseline_lr
 
-# In another terminal (same venv) start the dashboard
-streamlit run lexsense/dashboard.py
+# 4) Evaluate
+python -m lexsense.evaluate --data_dir data/govsense_1k --model_dir data/govsense_1k/baseline_lr
 ```
 
-Open `http://localhost:8501`. By default the dashboard expects `BACKEND_URL` env var when outside Docker. For local dev:
+## Dataset: GovSense‑1k (Synthetic for Reproducibility)
+
+- **Total**: 1,200 items
+- **Labels**: `governance` (400), `contract` (300), `lawsuit` (250), `asset` (250)
+- **Languages**: primarily `en`, `ko`, `fr`, with a small stress subset in `es`, `ar`, `vi`
+- **Fields**: `id`, `title`, `body`, `category`, `jurisdiction`, `language`, `timestamp`, `url`, `evidence_spans`
+
+Data lives under `data/govsense_1k/`:
+- `govsense_1k.jsonl` (full corpus)
+- `train.jsonl`, `dev.jsonl`, `test.jsonl`
+- `labels.csv` (label distribution)
+
+> This synthetic set mirrors the proportions and task setup described in the paper to support **code‑path verification** end‑to‑end without external data access.
+
+## Project Layout
+
+```
+src/lexsense/
+  ingest/generator_govsense.py   # dataset generator
+  taxonomy.py                    # label taxonomy & mapping
+  preprocess.py                  # text cleaning & splitting
+  train_classifier.py            # TF-IDF + Logistic Regression baseline
+  evaluate.py                    # metrics and report
+  drift.py                       # PSI for concept drift
+  audit.py                       # factuality audit stubs
+  reporter.py                    # LLM report generation stub
+scripts/
+  generate_govsense_1k.py
+data/govsense_1k/
+  govsense_1k.jsonl, train.jsonl, dev.jsonl, test.jsonl, labels.csv
+```
+
+## Docker
 
 ```bash
-export BACKEND_URL=http://localhost:8000
-streamlit run lexsense/dashboard.py
+docker build -t lexsense:starter .
+docker run --rm -it -v "$PWD":/app lexsense:starter   python -m lexsense.train_classifier --data_dir data/govsense_1k --out_dir data/govsense_1k/baseline_lr
 ```
 
----
+## License
 
-## Configuration
-
-- **OPENAI_API_KEY** (optional): if set, `reporter.py` will try GPT-4 for summarization; otherwise a HuggingFace model is used (`sshleifer/distilbart-cnn-6-6`).
-- **KAFKA_BROKER** (optional): e.g., `kafka:9092`. If not set, the Change Detector still returns simulated events.
-
----
-
-## Tests & Lint
-
-```bash
-pytest -q
-flake8 .
-```
-
-GitHub Actions workflow (`.github/workflows/ci.yml`) runs tests, lint, and builds a Docker image on each push/PR to `main` or `master`.
-
----
-
-## Project Structure
-
-This structure outlines the **LexSense project**, organizing core modules, sample data, tests, and deployment configurations into a clear, modular, and reproducible framework.
-
-```bash
-lexsense/                  # Core package
-│── __init__.py
-│── changedetector.py      # Module for detecting real-time updates
-│── datacollector.py       # Module for collecting documents
-│── processing.py          # NLP-based classification & entity extraction
-│── reporter.py            # LLM-powered summarization and reporting
-│── api.py                 # Lightweight API layer
-│── dashboard.py           # Streamlit-based visualization/dashboard
-│
-├── sample_data/           # Example input documents
-│   ├── doc1.txt
-│   ├── doc2.txt
-│   ├── doc3.txt
-│   └── doc4.txt
-│
-tests/                     # Unit tests
-│── test_detector.py
-│── test_processing.py
-│── test_reporter.py
-│
-Dockerfile                 # Container image definition
-docker-compose.yml         # Multi-service orchestration
-requirements.txt           # Python dependencies
-.github/
-└── workflows/
-    └── ci.yml             # Continuous Integration (CI) pipeline
-```
-
----
-
-## Notes & Limitations
-
-- This is a **demo** designed to be lightweight and reproducible. Replace the simulated parts with real crawlers, APIs, and databases for production.
-- Model downloads (NER, summarization) may take time and network access on first run. For fully offline use, pre-bake models into the image or mount a local model cache.
-- The RBAC and privacy features are illustrative only. Implement real authN/authZ, secure storage, and PII handling before any real deployment.
+Apache-2.0 — see `LICENSE.md`.
