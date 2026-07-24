@@ -8,7 +8,7 @@ It includes:
 - **Utilities**: Concept‑drift (PSI) utility, factuality‑audit stubs, LLM reporter stub.
 - **Dockerfile** & scripts for quick start.
 
-> Paper reference: LexSense (AI Governance Informatics). See the uploaded manuscript for task definition, dataset proportions, and evaluation outline.
+> Paper reference: LexSense — Multilingual AI for Inclusive Access to Legal and Government Information. See the manuscript for task definition, dataset proportions, and evaluation outline.
 
 ## Quick Start
 

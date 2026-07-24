@@ -15,7 +15,7 @@
 정량화하기 위해 analyst-in-the-loop 전략을 평가한다. 
 
 종합적으로, 이러한 연구는 시스템의 강건성, 일반화 가능성, 실무 적용 가능성에 대한 
-포괄적 이해를 제공하며, AI 거버넌스 정보학을 위한 확장 가능한 인프라로서의 역할을 강화한다.
+포괄적 이해를 제공하며, 법률·정부 정보에 대한 포용적 접근을 위한 확장 가능한 인프라로서의 역할을 강화한다.
 
 우리는 규제 모니터링을 구조화된 NLP 과제로 정식화하였다. 
 입력 $x$가 문서 $d$ (제목, 본문, 메타데이터)로 구성될 때, 
@@ -103,7 +103,7 @@ LexSense의 장기적 신뢰성과 배포 가능성을 보장하기 위해,
 프라이버시를 유지할 수 있는 추가 메커니즘을 도입하였다. 
 
 \paragraph{동기.}
-Falcon의 성공은 규제 업데이트의 \emph{정확한 해석}과 
+LexSense의 성공은 규제 업데이트의 \emph{정확한 해석}과 
 동적 환경에서의 \emph{지속적 신뢰성}에 달려 있다. 
 앞선 발견(개념 드리프트로 인한 성능 저하, 근거 기반 설명 가능성의 가치)을 바탕으로, 
 우리는 (i) LLM 생성 보고서를 위한 \textit{사실성 감사 프로토콜}, 
@@ -146,7 +146,7 @@ Falcon의 성공은 규제 업데이트의 \emph{정확한 해석}과
 \]
 여기서 $\hat{p}_b$와 $\hat{q}_b$는 현재와 이전 시점의 히스토그램 구간 비율이다.  
 임계값은 $\mathrm{PSI}<0.1$ (안정), $0.1\!\le\!\mathrm{PSI}\!<\!0.2$ (경고), $\mathrm{PSI}\!\ge\!0.2$ (알람)이다.  
-알람이 발생하면, Falcon은 저신뢰 샘플에 우선순위를 두어 
+알람이 발생하면, LexSense은 저신뢰 샘플에 우선순위를 두어 
 LoRA/QLoRA 기반 경량 재학습 또는 프롬프트 조정을 수행한다.
 
 \paragraph{프라이버시 설계(Privacy-by-Design).}
@@ -157,7 +157,7 @@ PII 삭제, 역할 기반 접근 제어(RBAC), 변조 방지 해시된 근거 �
 \paragraph{결과.}
 사실성 감사는 근거 기반 보고를 제도화하고, 
 ADD는 장기적 성능 저하를 \emph{자동화된 조기 경보}로 전환한다. 
-두 메커니즘은 Falcon의 효율성 개선을 견고한 사실성과 지속 가능한 배포로 뒷받침한다.
+두 메커니즘은 LexSense의 효율성 개선을 견고한 사실성과 지속 가능한 배포로 뒷받침한다.
 
 
 }{%
@@ -181,8 +181,8 @@ covering low-resource jurisdictions. Finally, we assess analyst-in-the-loop stra
 quantify efficiency gains and economic sustainability. 
 
 Together, these studies provide a comprehensive understanding of the system’s robustness, 
-generalization, and real-world applicability, reinforcing its role as a scalable infrastructure 
-for AI governance informatics.
+generalization, and real-world applicability, reinforcing its role as a scalable infrastructure
+for inclusive access to legal and government information.
 
 
 We formalize regulatory monitoring as a structured NLP task. Given an input $x$ consisting of a document $d$ (title, body, metadata), the system predicts a label $y \in \{ \texttt{governance}, \texttt{contract}, \texttt{lawsuit}, \texttt{asset} \}$. Outputs include both a categorical prediction and provenance metadata (source URL, timestamp). 
@@ -246,7 +246,7 @@ This suggests that human–AI collaboration can optimize both quality and effici
 To ensure long-term reliability and trustworthy deployment of LexSense, we augment the core system with additional mechanisms that safeguard factual accuracy, adapt to regulatory drift, and uphold privacy.
 
 \paragraph{Motivation.}
-Falcon’s success hinges on \emph{accurate interpretation} of regulatory updates and \emph{sustained reliability} in dynamic environments. 
+LexSense’s success hinges on \emph{accurate interpretation} of regulatory updates and \emph{sustained reliability} in dynamic environments. 
 Building on prior findings (performance degradation under concept drift and the value of evidence-linked explainability), 
 we propose a dual operational extension: 
 (i) a \textit{Factuality Audit Protocol} for LLM-generated reports, and (ii) an \textit{Automated Drift Detection (ADD)} module. 
@@ -284,7 +284,7 @@ We adopt the \emph{Population Stability Index (PSI)}:
 \]
 where $\hat{p}_b$ and $\hat{q}_b$ are histogram bin ratios for the current vs. previous time window.  
 Thresholds are $\mathrm{PSI}<0.1$ (stable), $0.1\!\le\!\mathrm{PSI}\!<\!0.2$ (alert), $\mathrm{PSI}\!\ge\!0.2$ (alarm).  
-When alarmed, Falcon triggers targeted lightweight re-training (LoRA/QLoRA) or prompt adjustment, with priority on low-confidence samples.
+When alarmed, LexSense triggers targeted lightweight re-training (LoRA/QLoRA) or prompt adjustment, with priority on low-confidence samples.
 
 \paragraph{Privacy-by-Design.}
 All ADD and audit logs store only minimal data: PII redaction, RBAC, and tamper-evident hashed evidence spans.  
@@ -292,6 +292,6 @@ This enforces compliance while preserving accountability.
 
 \paragraph{Outcome.}
 The Factuality Audit institutionalizes evidence-grounded reporting, while ADD turns long-term degradation into \emph{automated early warning}. 
-Together, they safeguard Falcon’s efficiency improvements with robust factuality and sustainable deployment.
+Together, they safeguard LexSense’s efficiency improvements with robust factuality and sustainable deployment.
 
 }

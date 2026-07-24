@@ -1,76 +1,57 @@
 \ifthenelse{\equal{\lang}{ko}}{%
-우리의 연구는 규제 모니터링, 법률 및 정책 텍스트에 대한 NLP, 책임 있는 AI 거버넌스 관련 기존 연구를 기반으로 하며, 
-기존 접근법의 한계를 드러내고 LLM 기반 분류체계의 참신성을 강조함으로써 기여를 위치시킨다. 
+우리의 연구는 법률·정부 정보 접근, 다국어 NLP, 근거 기반 생성 및 책임 있는 AI 관련 기존 연구를 기반으로 하며,
+기존 접근법의 한계를 드러내고 다국어·근거 기반 프레임워크의 참신성을 강조함으로써 기여를 위치시킨다.
 
-\subsection{규제 모니터링 및 정책 추적}
-AI 관련 법안을 추적하기 위한 초기 시도들은 키워드 기반 알림, RSS 피드, 반구조적 정책 데이터베이스에 집중하였다. 
-대표적인 예로 Google Alerts, ChangeDetection.io, OECD AI Policy Observatory, MIT Technology Review 이니셔티브 등이 있다 \cite{vincent2022monitoring, xu2023governance}. 
-이러한 도구들은 일정 수준의 커버리지를 제공하지만, 키워드 의존성, 관할권 불일치, 업데이트 포착 지연(latency)이라는 한계를 갖는다. 
-최근에는 엣지 디바이스에서의 규제 집행을 위한 비전 기반 실시간 컴플라이언스 모니터링 연구도 제안되었다 \cite{ijcai2024_realtimecompliance}. 
-이에 비해, 우리의 프레임워크는 실시간 탐지와 의미 해석을 제공하여 더 높은 커버리지와 더 낮은 모니터링 지연을 보장한다. 
+\subsection{법률·정부 정보 접근}
+공공 법률·정부 정보에 대한 접근을 개선하려는 초기 시도들은 키워드 기반 검색, 정적 포털, 정보 검색 시스템에 집중하였다 \cite{zhong2020legalai}.
+법률 판단 예측(ECtHR) \cite{aletras2016echr}, 계약 이해 데이터셋(CUAD) \cite{hendrycks2021cuad} 등은 법률 텍스트의 자동 분석 가능성을 보여주었으나, 대부분 단일 언어이며 비전문가 대상 접근성보다는 전문가 과제에 초점을 둔다.
+다국어 법률 코퍼스(MultiLegalPile) \cite{niklaus2023multilegal}는 저자원 언어로의 확장을 지원하지만, 시민 대면 정보 접근을 위한 통합 파이프라인은 제공하지 않는다.
 
-\subsection{법률 및 정책 텍스트를 위한 NLP와 LLM}
-최근 몇 년간 규제 및 컴플라이언스 도메인에서 NLP의 활용이 증가하였다. 
-전통적 방법들은 규칙 기반 추출, 계약 조항 분류, 법률 정보 검색에 집중하였다 \cite{morley2021ethics, mitchell2021modelcards}. 
-대규모 언어 모델의 등장과 함께 요약, 계약 분석, 법률 질의응답 등에 대한 적용이 활발히 탐구되었다 \cite{devlin2019bert, raffel2020t5, openai2023gpt4}. 
-최근 연구로는 다국어 컴플라이언스 분류를 다룬 Li et al. (2025), LLM 배포를 위한 혼합 정밀도 학습을 다룬 Shen et al. (2022)이 있으며, 
-복잡한 텍스트 도메인으로 LLM을 확장할 수 있음을 보여준다. 
-IJCAI 2024에서는 ESG 공시 파싱을 위한 \textbf{ReportParse}, 법률 요소 추출을 위한 \textbf{LEEC}와 같이 
-법률 및 규제 문서 처리에 직접적으로 기여하는 연구가 다수 발표되었다 \cite{ijcai2024_reportparse, ijcai2024_leec}. 
-이들 연구는 구조적·의미적 추출을 강조하지만, 통합된 규제 감지 프레임워크를 제공하지는 않는다. 
-우리의 기여는 규제 신호에 특화된 최초의 LLM 기반 분류체계를 다국어·다관할권 데이터에 적용한다는 점에서 기존 연구를 확장한다. 
+\subsection{법률·정책 텍스트를 위한 다국어 NLP와 LLM}
+Transformer 기반 인코더는 법률 NLP의 표준 도구가 되었다. LEGAL-BERT \cite{chalkidis2020legalbert}, LexGLUE 벤치마크 \cite{chalkidis2022lexglue}, LegalBench \cite{guha2023legalbench}는 법률 도메인 과제를 표준화하였다.
+다국어 사전학습(XLM-R \cite{conneau2020xlmr}, mT5 \cite{xue2021mt5}) 및 대규모 다국어 번역(No Language Left Behind \cite{nllb2022})은 언어 간 전이를 통해 저자원 언어를 포괄하는 길을 열었고, 다국어 벤치마크(XTREME \cite{hu2020xtreme})는 이러한 능력을 체계적으로 평가한다.
+GPT-4 \cite{openai2023gpt4}, LLaMA-2 \cite{touvron2023llama2}와 같은 LLM과 인간 피드백 기반 정렬 \cite{ouyang2022instructgpt}은 요약과 다국어 이해를 크게 향상시켰다.
+그러나 이러한 능력을 비전문가 대상 공공 정보 접근에 통합한 연구는 여전히 드물다.
 
-\subsection{책임 있는 AI와 거버넌스 프레임워크}
-AI 배포에서의 윤리적·사회적 고려를 강조하는 연구도 증가하고 있다. 
-대표적으로 신뢰할 수 있는 AI 원칙 기반 프레임워크 \cite{stix2021principles}, 
-Model Cards와 같은 모델 문서화 실천 \cite{mitchell2021modelcards}, 
-언어 모델의 사회적 위험을 분류한 연구 \cite{bommasani2021foundation, weidinger2021taxonomy} 등이 있다. 
-또한 Henderson et al. (2023)은 투명성과 책임성에 관한 규제적 관점을 강조하였다. 
-IJCAI 2024에서는 사실 충돌 환각 탐지를 위한 \textbf{FactCHD}, 편향 감사를 다룬 연구 \cite{ijcai2024_factchd, ijcai2024_biasaudit} 등이 발표되었다. 
-이와 보완적으로, 개인화된 AI 모델에서 데이터 소유권과 프라이버시를 분석한 \textbf{Data Ownership and Privacy in Personalized AI Models} \cite{ijcai2024_privacy}, 
-가치 정렬 프레임워크를 탐구한 \textbf{ComVas} \cite{ijcai2024_comvas}도 보고되었다. 
-우리의 연구는 이러한 노력과 궤를 같이 하지만, 공정성 인식 미세조정, 편향 감사, 투명성을 배포 가능한 시스템에 직접 내장한다는 점에서 차별화된다. 
+\subsection{근거 기반 생성과 책임 있는 AI}
+사실성과 신뢰성을 강화하기 위한 연구가 활발하다. 검색 증강 생성(RAG) \cite{lewis2020rag}, 문장 임베딩 기반 의미 검색 \cite{reimers2019sbert, reimers2020multilingual}은 생성 결과를 외부 근거에 연결한다.
+요약 충실성 \cite{maynez2020faithfulness}과 환각 탐지 \cite{ji2023hallucination}에 관한 연구는 LLM 출력 검증의 필요성을 강조한다.
+동시에 Model Cards \cite{mitchell2021modelcards}, 언어 모델의 사회적 위험 분류 \cite{weidinger2021taxonomy, bender2021stochastic}, 그리고 EU AI 법안 \cite{EUAIAct2024}과 같은 규제는 투명성과 책임성의 중요성을 부각한다.
+우리의 연구는 이러한 노력과 궤를 같이 하지만, 사실성 감사, 개념 드리프트 대응 \cite{gama2014drift}, 근거 연결을 배포 가능한 다국어 접근성 시스템에 직접 내장한다는 점에서 차별화된다.
 
 \subsection{기여의 참신성(Novelty of Our Contribution)}
-기존 연구와 달리, 우리는 규제 모니터링을 순수한 법률 또는 컴플라이언스 지원 과제로 취급하지 않는다. 
-대신, \textbf{실시간 탐지–의미 분류–LLM 보고}를 결합한 \textbf{통합적이고 모듈형인 프레임워크}를 제안하며, 
-EU, 미국, 한국 데이터셋을 대상으로 검증하였다. 
-이를 통해 우리는 규제 감지를 AI 연구의 새로운 벤치마크로 자리매김시키며, 
-\textbf{NLP, 법학, 거버넌스}를 연결하는 \textbf{AI 거버넌스 정보학}이라는 연구 영역을 개척한다.
+기존 연구와 달리, 우리는 법률·정부 정보 접근을 순수한 법률 전문가 과제로 취급하지 않는다.
+대신, \textbf{변화 탐지–다국어 분류–근거 기반 요약·LLM 보고}를 결합한 \textbf{통합적이고 모듈형인 프레임워크}를 제안하며,
+영어·한국어·프랑스어 데이터셋에서 검증하고 스페인어·아랍어·베트남어로 스트레스 테스트하였다.
+이를 통해 우리는 비전문가와 다국어 공동체를 위한 \textbf{포용적 정보 접근}을 새로운 연구 방향으로 자리매김한다 \cite{devlin2019bert, bommasani2021foundation}.
 
 
 }{%
 
-Our work builds on prior research in regulatory monitoring, NLP for legal and policy texts, and responsible AI governance, situating our contribution by exposing the limitations of existing approaches and highlighting the novelty of our LLM-driven taxonomy.
+Our work builds on prior research in legal and government information access, multilingual NLP, evidence-grounded generation, and responsible AI, situating our contribution by exposing the limitations of existing approaches and highlighting the novelty of our multilingual, evidence-grounded framework.
 
 
-\subsection{Regulatory Monitoring and Policy Tracking}
-Early efforts to track AI-related legislation focused on keyword-based alerts, RSS feeds, and semi-structured policy databases. 
-Examples include Google Alerts, ChangeDetection.io, and specialized trackers such as the OECD AI Policy Observatory and MIT Technology Review initiatives \cite{vincent2022monitoring, xu2023governance}. 
-While these tools provide useful coverage, they are limited by keyword reliance, jurisdictional inconsistencies, and significant latency in capturing updates. 
-Recent research has also explored real-time compliance monitoring in other modalities, such as vision-based systems for regulatory enforcement on edge devices \cite{ijcai2024_realtimecompliance}. 
-Unlike these approaches, our framework provides real-time detection and semantic interpretation, ensuring higher coverage and lower monitoring delay.
+\subsection{Legal and Government Information Access}
+Early efforts to improve access to public legal and government information focused on keyword-based search, static portals, and information-retrieval systems \cite{zhong2020legalai}.
+Legal judgment prediction (ECtHR) \cite{aletras2016echr} and contract-understanding datasets (CUAD) \cite{hendrycks2021cuad} demonstrated the feasibility of automatically analyzing legal text, but most are monolingual and focus on expert tasks rather than accessibility for non-experts.
+Multilingual legal corpora (MultiLegalPile) \cite{niklaus2023multilegal} support extension to low-resource languages, yet do not provide an integrated pipeline for citizen-facing information access.
 
-\subsection{NLP and LLMs for Legal and Policy Texts}
-The application of NLP to regulatory and compliance domains has grown in recent years. 
-Traditional methods focused on rule-based extraction, contract clause classification, and legal information retrieval \cite{morley2021ethics, mitchell2021modelcards}. 
-With the advent of large language models, researchers have explored their use for summarization, contract analysis, and legal question answering \cite{devlin2019bert, raffel2020t5, openai2023gpt4}. 
-Recent works such as Li et al. (2025) on multilingual compliance classification and Shen et al. (2022) on mixed-precision training for LLM deployment show the feasibility of scaling LLMs to complex text domains. 
-At IJCAI 2024, several contributions directly addressed legal and regulatory document processing, including \textbf{ReportParse} for ESG disclosure parsing and \textbf{LEEC} for legal element extraction \cite{ijcai2024_reportparse, ijcai2024_leec}. 
-These works emphasize structural and semantic extraction but stop short of providing an integrated regulatory sensing framework. 
-Our contribution extends this line of work by introducing the first LLM-driven taxonomy tailored to regulatory signals across multiple jurisdictions and languages.
+\subsection{Multilingual NLP and LLMs for Legal and Policy Texts}
+Transformer-based encoders have become standard tools in legal NLP. LEGAL-BERT \cite{chalkidis2020legalbert}, the LexGLUE benchmark \cite{chalkidis2022lexglue}, and LegalBench \cite{guha2023legalbench} standardized legal-domain tasks.
+Multilingual pretraining (XLM-R \cite{conneau2020xlmr}, mT5 \cite{xue2021mt5}) and large-scale multilingual translation (No Language Left Behind \cite{nllb2022}) opened a path to covering low-resource languages via cross-lingual transfer, and multilingual benchmarks (XTREME \cite{hu2020xtreme}) systematically evaluate these capabilities.
+LLMs such as GPT-4 \cite{openai2023gpt4} and LLaMA-2 \cite{touvron2023llama2}, together with human-feedback alignment \cite{ouyang2022instructgpt}, have substantially improved summarization and multilingual understanding.
+However, work that integrates these capabilities into public information access for non-experts remains scarce.
 
-\subsection{Responsible AI and Governance Frameworks}
-A growing body of work emphasizes ethical and social considerations in AI deployment. 
-Prominent efforts include principles-based frameworks for trustworthy AI \cite{stix2021principles}, model documentation practices such as Model Cards \cite{mitchell2021modelcards}, and taxonomies of social risks from language models \cite{bommasani2021foundation, weidinger2021taxonomy}. 
-Henderson et al. (2023) and others further highlight regulatory perspectives on transparency and accountability. 
-IJCAI 2024 research has deepened these directions with \textbf{FactCHD}, a benchmark for fact-conflicting hallucination detection, as well as studies on bias auditing \cite{ijcai2024_factchd, ijcai2024_biasaudit}. 
-Complementary work has also analyzed privacy and ownership in AI systems, e.g., \textbf{Data Ownership and Privacy in Personalized AI Models} \cite{ijcai2024_privacy}, and explored value alignment frameworks such as \textbf{ComVas} \cite{ijcai2024_comvas}. 
-Our work aligns with these efforts but goes further by embedding fairness-aware fine-tuning, bias auditing, and transparency features directly into a deployable system.
+\subsection{Evidence-Grounded Generation and Responsible AI}
+A growing body of work strengthens factuality and reliability. Retrieval-augmented generation (RAG) \cite{lewis2020rag} and sentence-embedding-based semantic retrieval \cite{reimers2019sbert, reimers2020multilingual} link generated outputs to external evidence.
+Studies on summarization faithfulness \cite{maynez2020faithfulness} and hallucination detection \cite{ji2023hallucination} emphasize the need to verify LLM outputs.
+At the same time, Model Cards \cite{mitchell2021modelcards}, taxonomies of social risks from language models \cite{weidinger2021taxonomy, bender2021stochastic}, and regulations such as the EU AI Act \cite{EUAIAct2024} underscore the importance of transparency and accountability.
+Our work aligns with these efforts but goes further by embedding factuality auditing, concept-drift adaptation \cite{gama2014drift}, and evidence linking directly into a deployable multilingual accessibility system.
 
 \subsection{Novelty of Our Contribution}
-In contrast to prior studies, we do not treat regulatory monitoring as a purely legal or compliance-support task. 
-Instead, we introduce a \textbf{unified, modular framework} that combines real-time detection, semantic classification, and LLM-powered reporting, validated across EU, U.S., and Korean datasets. 
-By doing so, we position regulatory sensing as a new benchmark for AI research, bridging \textbf{NLP, law, and governance} in what we term \textbf{AI governance informatics}.
+In contrast to prior studies, we do not treat legal and government information access as a purely expert legal task.
+Instead, we introduce a \textbf{unified, modular framework} that combines change detection, multilingual classification, and evidence-grounded summarization/LLM reporting,
+validated on English, Korean, and French datasets and stress-tested on Spanish, Arabic, and Vietnamese.
+By doing so, we position \textbf{inclusive information access} for non-experts and multilingual communities as a new research direction \cite{devlin2019bert, bommasani2021foundation}.
 
 }

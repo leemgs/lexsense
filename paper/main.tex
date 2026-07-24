@@ -78,10 +78,17 @@
 % The color styles for hyperlinks
 %   urlcolor     = blue, %Colour for external hyperlinks
 
+% NOTE (pre-submission debugging aid):
+%   colorlinks=true + urlcolor=blue makes every reference URL print as
+%   BLUE clickable text, so the author can click each link in the
+%   References section and verify that the cited paper actually exists
+%   before submission. Internal links and citations stay black.
+%   For the camera-ready version, set colorlinks=false (or urlcolor=black)
+%   and/or remove the `url` fields in reference-data.bib.
 \hypersetup{
-  colorlinks   = false, %Colours links instead of ugly boxes
-  urlcolor     = blue, %Colour for external hyperlinks
-  linkcolor    = black,  %Colour of internal links
+  colorlinks   = true,  %Colour link text (needed so urlcolor takes effect)
+  urlcolor     = blue,  %Colour for external hyperlinks (reference URLs)
+  linkcolor    = black, %Colour of internal links
   citecolor    = black  %Colour of citations, could be ``red''
 }
 

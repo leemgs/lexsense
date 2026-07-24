@@ -1,26 +1,27 @@
 \ifthenelse{\equal{\lang}{ko}}{%
-본 연구는 \textbf{AI 거버넌스 정보학(AI Governance Informatics)}을 향한 첫 걸음을 내디디며, 
-전 세계적으로 확장 가능하고 신뢰할 수 있는 규제 모니터링을 위한 기초를 마련하였다. 
-우리는 \textbf{LexSense}를 제안하였으며, 이는 실시간 탐지, 의미 분석, LLM 기반 보고를 통합한 통합 프레임워크이다. 
-EU, 미국, 한국 데이터셋에서 91\%의 정확도를 달성하였고, 모니터링 업무량을 82\% 줄였으며, 
-보고 시간을 70\% 단축하면서 지연은 3.5초 미만으로 유지하였다. 
-사용자 연구를 통해 더 높은 신뢰성과 효율성이 확인되었다. 
+본 연구는 법률·정부 정보에 대한 \textbf{포용적 접근}을 향한 첫 걸음을 내디디며,
+다양한 언어의 시민이 공공 정보에 접근할 수 있는 기초를 마련하였다.
+우리는 변화 탐지, 다국어 자연어 처리, 개념 드리프트 모니터링, 근거 기반 분석, LLM 기반 보고를 통합한
+다국어 AI 프레임워크 \textbf{LexSense}를 제안하였다.
+영어·한국어·프랑스어를 대상으로 한 평가에서 높은 정확도를 달성하였고,
+요약 준비 시간을 70\% 단축하면서 지연은 3.5초 미만으로 유지하였다.
+스페인어·아랍어·베트남어에 대한 스트레스 테스트는 저자원 언어로의 확장 가능성을 보여주었다.
 
-공정성 인식 미세조정, 편향 감사, 프라이버시 보호 메커니즘을 내장함으로써, 
-우리는 효율성 향상과 윤리적 안전장치를 조화시켰다. 
-향후 연구에서는 다국어 커버리지를 확장하고, 개념 드리프트 하에서의 연속 학습을 고도화하며, 
-경량 피드백 프로토콜을 설계할 예정이다. 
-종합적으로, 본 연구는 배포 가능한 컴플라이언스 인프라를 제공하고, 
-NLP, 법학, 책임 있는 AI의 교차점에서 AI 거버넌스를 데이터 기반의 구체적 학문 분야로 정립한다. 
- 
+또한 근거 주석이 포함된 다국어 벤치마크 \textbf{GovSense-1k}를 공개하여 재현성을 지원하였다.
+사실성 감사, 투명성, 인간 감독 메커니즘을 내장함으로써, 우리는 효율성 향상과 책임 있는 배포를 조화시켰다.
+향후 연구에서는 다국어 커버리지를 확장하고, 개념 드리프트 하에서의 연속 학습을 고도화하며,
+비전문가를 위한 평이한 언어(plain-language) 요약을 개선할 예정이다.
+종합적으로, 본 연구는 자연어 처리, 법·정책 정보학, 책임 있는 AI의 교차점에서
+공공 지식에 대한 포용적 접근을 위한 배포 가능한 인프라를 제시한다.
+
 
 }{%
 % -------------------- English Version --------------------
 
-This study establishes \textit{AI Governance Informatics} as a new research domain by introducing \textbf{LexSense}, an LLM-driven framework for regulatory monitoring and compliance. Through the integration of real-time detection, semantic data acquisition, and LLM-based reporting, LexSense demonstrated both high accuracy (91\%) and significant efficiency gains (82\% workload reduction, 70\% faster reporting) across EU, U.S., and Korean datasets. The release of open-source code, datasets, and Dockerized environments further enhances reproducibility and practical applicability.  
+This study takes a step toward \textit{inclusive access} to legal and government information by introducing \textbf{LexSense}, a multilingual AI framework that integrates change detection, multilingual natural language processing, concept-drift monitoring, evidence-grounded analysis, and LLM-based reporting. Evaluated on English, Korean, and French, LexSense demonstrated high accuracy and significant efficiency gains (70\% faster summarization) while keeping latency under 3.5s, and stress tests on Spanish, Arabic, and Vietnamese showed its potential to extend to low-resource languages. The release of GovSense-1k, open-source code, and Dockerized environments further enhances reproducibility and practical applicability.
 
-Beyond technical achievements, this work contributes a conceptual foundation that bridges natural language processing, information systems, and legal governance. By embedding fairness-aware tuning, bias audits, and privacy-preserving mechanisms, LexSense advances not only system efficiency but also responsible deployment.  
+Beyond technical achievements, this work contributes a conceptual foundation that bridges natural language processing, legal and policy informatics, and responsible AI. By embedding factuality auditing, transparency, and human-oversight mechanisms, LexSense advances not only system efficiency but also responsible deployment for non-experts and multilingual communities.
 
-Looking forward, we envision extending this framework to low-resource jurisdictions, strengthening long-term robustness through automated drift detection, and deepening theoretical modeling of governance processes within organizations. In doing so, LexSense can evolve from a practical compliance system into a cornerstone framework for \textit{responsible AI governance} in information systems research.  
+Looking forward, we envision extending this framework to additional low-resource jurisdictions, strengthening long-term robustness through automated drift detection, and improving plain-language summarization for non-experts. In doing so, LexSense can evolve from a practical prototype into a cornerstone infrastructure for \textit{inclusive access} to public legal and governmental knowledge.
 
 }
