@@ -1,0 +1,80 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{그룹} & \textbf{기본(Base)} & \textbf{+공정성(Fairness)} & \textbf{비고} \\
+\midrule
+영어 (EU/US)     & 0.89 & 0.90 & 홀드아웃 \\
+한국어 (KR)      & 0.86 & 0.88 & 홀드아웃 \\
+프랑스어 (EU)    & 0.84 & 0.87 & 홀드아웃 \\
+저자원 (제로샷)  & 0.71 & --   & zero-shot \\
+저자원 (소수샷)  & --   & 0.84 & few-shot \\
+\bottomrule
+\end{tabular}
+}
+\caption{편향 감사 요약. 공정성 인식 튜닝은 언어 간 격차를 줄였으며, 소수샷 학습은 저자원 성능을 향상시켰다.}
+\label{tab:bias_audit}
+\end{table}
+
+거버넌스를 위한 자동화된 AI 감지 시스템은 기술적 성능을 넘어 중요한 우려를 야기한다 \cite{stix2021ai, morley2021ethics}. 
+핵심 차원에는 공정성, 투명성, 프라이버시, 그리고 더 넓은 사회적 함의가 포함된다 \cite{bommasani2021foundation}.
+~\\
+\textbf{편향과 공정성.} LLM은 학습 데이터의 편향을 전파할 수 있으며 \cite{caliskan2017bias, bender2021stochastic}, 
+이는 저자원 관할권의 과소대표나 조항의 오분류로 이어질 수 있다. 
+우리의 다국어 평가에서는 영어, 한국어, 프랑스어 간 성능 격차가 관찰되었으며, 
+공정성 인식 미세조정으로 약 21\%의 격차 감소를 달성하였다. 
+또한 소수샷 적응은 저자원 성능을 0.71에서 0.84 macro-F1로 향상시켰다.
+~\\
+\textbf{투명성과 프라이버시.} 출처 메타데이터를 포함한 구조화된 출력은 설명 가능성과 감사 가능성을 지원한다 \cite{mitchell2021modelcards}. 
+프라이버시 위험(예: 분석가 로그)은 데이터 최소화, 익명화, 역할 기반 접근 제어를 통해 완화하였다 \cite{carlini2021extracting}.
+~\\
+\textbf{사회적 함의.} 자동화는 모니터링 비용을 낮추고 접근성을 민주화하여, 중소기업 및 연구 그룹에 혜택을 제공한다 \cite{vincent2022ai}. 
+그러나 책임성과 신뢰 유지를 위해 인간의 감독은 여전히 필수적이다 \cite{morley2021ethics}.
+~\\
+\textbf{교훈.} 공정성 감사, 투명성, 프라이버시 설계, 인간 참여(in-the-loop)와 같은 윤리적 안전장치는 
+책임 있는 배포를 보장하기 위해 기술적 진보와 불가분의 관계임을 확인하였다 \cite{sun2022responsible}.
+  
+
+}{%
+
+
+\begin{table}[t]
+\centering
+\small
+%\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Group} & \textbf{Base} & \textbf{+Fairness} & \textbf{Notes} \\
+\midrule
+English (EU/US)   & 0.89 & 0.90 & held-out \\
+Korean (KR)       & 0.86 & 0.88 & held-out \\
+French (EU)       & 0.84 & 0.87 & held-out \\
+Low-resource (ZS) & 0.71 & --   & zero-shot \\
+Low-resource (FS) & --   & 0.84 & few-shot \\
+\bottomrule
+\end{tabular}
+
+\caption{Bias audit summary. Fairness-aware tuning reduces cross-language disparity; few-shot boosts low-resource.}
+\label{tab:bias_audit}
+\end{table}
+
+Automated AI sensing systems for governance raise important concerns beyond technical performance \cite{stix2021ai, morley2021ethics}. 
+Key dimensions include fairness, transparency, privacy, and broader societal implications \cite{bommasani2021foundation}.
+~\\
+\textbf{Bias and Fairness. } LLMs may propagate biases from training data \cite{caliskan2017bias, bender2021stochastic}, leading to underrepresentation of low-resource jurisdictions or misclassification of clauses. 
+Our cross-lingual evaluation showed disparities across English, Korean, and French, mitigated by fairness-aware fine-tuning (≈21\% disparity reduction). 
+Few-shot adaptation also improved low-resource performance (0.71$\to$0.84 macro-F1).
+~\\
+\textbf{Transparency and Privacy.} Structured outputs with provenance metadata support explainability and auditability \cite{mitchell2021modelcards}. 
+Privacy risks (e.g., analyst logs) are mitigated via data minimization, anonymization, and role-based access control \cite{carlini2021extracting}.
+~\\
+\textbf{Societal Implications.} Automation lowers monitoring costs and democratizes access, benefiting SMEs and research groups \cite{vincent2022ai}. 
+However, human oversight remains essential to maintain accountability and trust \cite{morley2021ethics}.
+~\\
+\textbf{Lessons Learned.} Ethical safeguards—fairness auditing, transparency, privacy-by-design, and human-in-the-loop—are inseparable from technical advances to ensure responsible deployment \cite{sun2022responsible}.
+
+}

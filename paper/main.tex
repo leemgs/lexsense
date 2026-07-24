@@ -1,0 +1,250 @@
+%Version 3.1 December 2024
+% See section 11 of the User Manual for version history
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% https://www.editorialmanager.com/isfi/default2.aspx
+% https://www.springernature.com/gp/authors/campaigns/latex-author-support
+% https://link.springer.com/journal/10796/submission-guidelines
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Information Systems Frontiers (Springer, SCIE, Q2)
+% -왜 적합한가: 정책, 법, 책임 있는 AI, 데이터 거버넌스 등 정보시스템과 사회적 규제의 접점을 다룸.
+% -SCIE 여부: JCR/SCIE 등재.
+% -APC: 하이브리드 → OA 선택 안 하면 APC 없음.
+% -장점: 사회적·정책적 맥락과 기술 결합 논문을 환영.
+% -“빠른 accept + 게재비 0원 + SCIE”를 만족하고, **당신의 논문 주제(LLM 기반 규제 모니터링·AI % Governance Informatics)**와 가장 잘 맞는 곳은:
+%   1) Government Information Quarterly (Elsevier, Q1)
+%   2) Information Systems Frontiers (Springer, Q2)
+%   3) 보조 후보: IEEE Intelligent Systems (IEEE, SCIE)
+
+%%\documentclass[referee,sn-basic]{sn-jnl}% referee option is meant for double line spacing
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+%%%%
+
+%% ------------- Geunsik Area : Start ----------------------
+
+\usepackage{natbib} % author–year 권장
+
+% How to separate languages (e.g., ko, en) for paper writing
+\usepackage{ifthen} % 조건문 사용
+\newcommand{\lang}{en} % Language: ko 또는 en 으로 설정
+\newcommand{\anonymous}{false} % Author: true 또는 false으로 설정
+
+% How to support Korean language with the 'latexmkrc' file in www.overleaf.com
+\usepackage{kotex}
+
+% How to print date, hour, and minute to maintain the current version of the paper.
+% Append the below statement in the 'abstract' section.
+% For example, write "[Notice] This document was compiled on: \today\ at \currenttime." 
+\usepackage[short,nodayofweek,level,24hr]{datetime}
+
+% 날짜/시간 포맷 정의
+\newdateformat{customdate}{\shortmonthname[\THEMONTH]-\twodigit{\THEDAY}-\THEYEAR \ \currenttime}
+
+% for pseudo code
+\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}
+
+% for using a number symbol (\ding{3})
+\usepackage{pifont}
+
+% Text highlight and color (e.g. \hl, \textcolor )
+\usepackage{xcolor,color,soul}
+%\usepackage{soul}
+
+% Hyperlinks to content
+%\usepackage[linktocpage=true]{hyperref}
+\usepackage{hyperref}
+%\usepackage[hidelinks]{hyperref}
+
+
+% The color styles for hyperlinks
+%   urlcolor     = blue, %Colour for external hyperlinks
+
+\hypersetup{
+  colorlinks   = false, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = black,  %Colour of internal links
+  citecolor    = black  %Colour of citations, could be ``red''
+}
+
+% How to support a code listing
+%\usepackage{listings}
+
+% set the default code style
+\lstset{
+    frame=tb, % draw a frame at the top and bottom of the code block
+    tabsize=4, % tab space width
+    showstringspaces=false, % don't mark spaces in strings
+    numbers=left, % display line numbers on the left
+    commentstyle=\color{green}, % comment color
+    keywordstyle=\color{blue}, % keyword color
+    stringstyle=\color{red} % string color
+}
+
+% to use toprule in table
+%\usepackage{booktabs}
+\usepackage{multirow}
+
+% page number
+\pagestyle{plain}
+
+%% ------------- Geunsik Area : End --------------------------
+
+%%%%%=============================================================================%%%%
+%%%%  Remarks: This template is provided to aid authors with the preparation
+%%%%  of original research articles intended for submission to journals published 
+%%%%  by Springer Nature. The guidance has been prepared in partnership with 
+%%%%  production teams to conform to Springer Nature technical requirements. 
+%%%%  Editorial and presentation requirements differ among journal portfolios and 
+%%%%  research disciplines. You may find sections in this template are irrelevant 
+%%%%  to your work and are empowered to omit any such section if allowed by the 
+%%%%  journal you intend to submit to. The submission guidelines and policies 
+%%%%  of the journal take precedence. A detailed User Manual is available in the 
+%%%%  template package for technical guidance.
+%%%%%=============================================================================%%%%
+
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+
+\begin{document}
+
+% Article: Title 
+\input{./001_title.tex}
+
+% Article: Author
+\input{./005_author.tex}
+
+% Article: Abstract
+\input{./010_abstract.tex}
+
+%%\pacs[JEL Classification]{D8, H51}
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+% Article: Introduction
+\section{Introduction}\label{sec:introduction}
+\input{./020_introduction.tex}
+
+% Article: Background
+\section{Background}\label{sec:background}
+\input{./040_background.tex}
+
+
+% Article: Design 
+\section{LexSense: Design and Implementation}\label{sec:lexsense}
+\input{./050_design.tex}
+
+
+% Article: Evaluation
+\section{Evaluation}\label{sec:evaluation}
+\input{./065_evaluation.tex}
+
+\section{Extended Evaluation and Robustness Analysis}
+\input{./067_extended_evaluation.tex}
+
+
+% Article: Discussion
+\section{Discussion}\label{sec:discussion}
+\input{./070_discussion.tex}
+
+
+% Article: ethical and societal impact
+\section{Ethical and Societal Impact}
+\input{./075_ethical_impact.tex}
+
+
+% Article: Related work
+\section{Related Work}\label{sec:related_work}
+\input{./080_related_work.tex}
+
+
+% Article: Limitations and Future Directions
+\section{Limitations and Future Directions}
+\input{./085_limitation.tex}
+
+
+
+% Article: Conclusion
+\section{Conclusion}\label{sec:conclusion}
+\input{./090_conclusion.tex}
+
+
+\backmatter
+
+\bmhead{Acknowledgements}
+The author would like to thank the anonymous reviewers, Seungkeun Lee, Jaewon Kim, Chanwoo Choi, Inki Dae, HyoYoung Kim, and Dongseob Park for their constructive comments and valuable feedback that significantly improved this work.
+
+
+\section*{Declarations}
+
+\bmhead{Ethics approval and consent to participate}
+Not applicable. This research did not involve human participants, animal experiments, or sensitive personal data requiring ethics committee approval.
+
+\bmhead{Consent for publication}
+Not applicable. This manuscript does not include any individual person’s data in any form (including individual details, images, or videos).
+
+\bmhead{Availability of data and material}
+The datasets generated and/or analyzed during the current study are publicly available in the project repository:
+\url{https://github.com/leemgs/lexsense}. Additional materials, including benchmark data (GovSense-1k) and Dockerized pipelines, are provided for reproducibility.
+
+\bmhead{Competing interests}
+The author declares that there are no competing financial or non-financial interests that could have appeared to influence the work reported in this paper.
+
+\bmhead{Funding}
+This work was supported by internal research funding from Sungkyunkwan University and partially supported by the Korea National Law Information Center. The funding bodies had no role in the design of the study, data collection, analysis, interpretation, or manuscript writing.
+
+\bmhead{Author contributions}
+Geunsik Lim conceived the research, designed and implemented the LexSense framework, conducted the experiments, analyzed the results, and wrote the manuscript. The author approved the final version of the manuscript and agrees to be accountable for all aspects of the work.
+
+
+
+%\bibliography{sn-bibliography}% common bib file
+%% if required, the content of .bbl file can be included here once bbl is generated
+%%\input sn-article.bbl
+
+% Article: Reference
+\input{./095_reference.tex} 
+
+% Article: Appendix
+%\clearpage
+%\section*{Appendix: Reproducibility Checklist (IJCAI)}\label{sec:appendix}
+%\input{./100_appendix.tex}
+
+
+
+\end{document}

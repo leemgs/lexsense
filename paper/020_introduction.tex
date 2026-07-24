@@ -1,0 +1,32 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+ 생성형 AI 시스템의 급격한 확산은 산업을 변화시키며, 자동화, 생산성, 혁신에 있어 전례 없는 기회를 제공하였다 \cite{bommasani2021foundation,weidinger2021taxonomy}. 동시에 이러한 성장은 전 세계적으로 규제 이니셔티브, 법적 조치, 거버넌스 프레임워크의 유례없는 물결을 촉발하였다. 대표적인 예로는 유럽연합의 AI 법안(EU AI Act) \cite{EUAIAct2024}, 미국의 신뢰할 수 있는 AI에 관한 최근 행정명령 \cite{usExecOrder2023}, 한국의 AI 윤리 가이드라인 \cite{morley2021ethics,stix2021ai} 등이 있다. 기업, 정책 입안자, 연구 기관에게 이러한 변화에 발맞추지 못하는 것은 비준수 위험, 평판 손상, 전략적 불이익과 같은 심각한 리스크를 초래한다.
+
+이러한 역동적 환경에서 기존의 규제 모니터링 방식은 충분하지 않다. 수작업 분석가 보고서는 정확하지만 느리고 비용이 많이 든다. 키워드 기반 알림은 의미적 깊이가 부족해 불필요한 잡음을 생성하거나 미묘한 규제 신호를 놓치기 쉽다. OECD나 MIT 이니셔티브와 같은 정적 정책 추적기는 실시간 변화에 뒤처지고, 관할권 간 불일치를 해결하지 못한다 \cite{xu2023governance}. 이러한 한계는 규제, 계약, 법적 문서를 전문가 수준의 엄밀함으로 해석할 수 있는 확장 가능하고 자동화된 의미 인식 모니터링 인프라의 필요성을 강조한다.
+
+본 논문에서는 \textbf{자동화된 AI 동향 감지 시스템(Automated AI Trend Sensing System)}, \textbf{LexSense}를 제안한다. 이 프레임워크는 실시간 변화 탐지, 의미론적 데이터 수집, 대규모 언어 모델(LLM) 기반 보고를 통합한 엔드투엔드 파이프라인이다. 핵심 혁신은 규제 감지를 위한 \textbf{LLM 기반 분류체계}로, 다양한 관할권과 언어에 걸쳐 규제 문서, 계약 조항, 소송, AI 자산 공개를 세밀하게 분류할 수 있다. 기존 모니터링 도구와 달리, 본 접근법은 의미 추론, 구조화된 보고, 다국어 적응성을 활용하여 규제 모니터링의 범위를 표면적 키워드 매칭을 넘어 확장한다.
+~\\
+본 연구의 기여는 세 가지다. 
+\textbf{첫째, 통합 아키텍처:} AI 거버넌스 및 컴플라이언스를 위해 실시간 모니터링, 의미 기반 분류, LLM 기반 보고를 결합한 모듈형 프레임워크를 설계하고 구현하였다 \cite{henderson2023ai}. 
+\textbf{둘째, LLM 기반 분류체계:} AI 규제와 컴플라이언스에 특화된 최초의 분류체계를 제안하고, 이를 다수의 관할권(EU, 미국, 한국)과 언어(영어, 한국어, 프랑스어)에 걸쳐 검증하였다 \cite{weidinger2021taxonomy}. 
+\textbf{셋째, 포괄적 평가:} Google Alerts, OECD AI Policy Tracker와 같은 기존 방식과 비교 실험을 수행하여, 91\% 분류 정확도, 82\% 모니터링 노력 감소, 70\% 보고 시간 단축이라는 정량적 개선을 입증하였다. 
+
+이러한 기술적 기여를 넘어, 본 연구는 공정성 인식 파인튜닝, 편향 감사, 프라이버시 보호 모니터링 등 윤리적·사회적 함의도 분석하였다 \cite{caliskan2017bias,vincent2022ai}. 종합하면, 본 연구는 배포 가능한 컴플라이언스 솔루션을 제공할 뿐만 아니라, 자연어 처리, 법학, 책임 있는 AI의 교차점에서 새로운 연구 분야인 \textbf{AI 거버넌스 정보학(AI Governance Informatics)}을 확립한다 \cite{sun2022responsible}.
+
+
+
+}{%
+% -------------------- English Version --------------------
+The rapid proliferation of generative AI systems has transformed industries, enabling unprecedented opportunities for automation, productivity, and innovation \cite{bommasani2021foundation,weidinger2021taxonomy}. At the same time, this growth has triggered an unprecedented wave of regulatory initiatives, legal actions, and governance frameworks worldwide. Examples include the European Union AI Act \cite{EUAIAct2024}, recent U.S. executive orders on trustworthy AI \cite{usExecOrder2023}, and the Korean AI Ethics Guidelines \cite{morley2021ethics,stix2021ai}. For enterprises, policymakers, and research institutions, failure to keep pace with such developments introduces significant risks of non-compliance, reputational damage, and strategic disadvantage.
+
+Traditional approaches to regulatory monitoring remain insufficient in this dynamic environment. Manual analyst reports are accurate but slow and costly. Keyword-based alerts lack semantic depth, often producing irrelevant noise or missing subtle regulatory signals. Static policy trackers, such as OECD or MIT initiatives, lag behind real-time changes and struggle with jurisdictional inconsistencies \cite{xu2023governance}. These limitations underscore the need for scalable, automated, and semantically aware monitoring infrastructures that can interpret regulatory, contractual, and legal documents with the rigor expected of expert analysts.
+
+In this paper, we introduce the \textbf{Automated AI Trend Sensing System}, \textbf{LexSense}, a unified framework that integrates real-time detection, semantic data collection, and large language model (LLM)-powered reporting into an end-to-end pipeline. The central novelty is an \textbf{LLM-driven taxonomy} for regulatory sensing, enabling fine-grained classification of governance documents, contractual clauses, lawsuits, and AI asset releases across jurisdictions and languages. Unlike prior monitoring tools, our approach leverages semantic reasoning, structured reporting, and cross-lingual adaptability, extending the scope of regulatory monitoring beyond surface-level keyword matching. 
+~\\
+Our contributions are threefold. 
+\textbf{First, Unified Architecture:} we design and implement a modular framework that combines real-time monitoring, semantic classification, and LLM-driven reporting for AI governance and compliance \cite{henderson2023ai}. 
+\textbf{Second, LLM-Driven Taxonomy:} we introduce the first taxonomy tailored to AI regulation and compliance, validated across multiple jurisdictions (EU, U.S., Korea) and languages (English, Korean, French) \cite{weidinger2021taxonomy}. 
+\textbf{Third, Comprehensive Evaluation:} we conduct extensive experiments against baselines such as Google Alerts and the OECD AI Policy Tracker, demonstrating measurable gains: 91\% classification accuracy, 82\% monitoring effort reduction, and 70\% reporting time reduction. 
+
+Beyond these technical contributions, we analyze ethical and societal implications, including fairness-aware fine-tuning, bias auditing, and privacy-preserving monitoring \cite{caliskan2017bias,vincent2022ai}. Taken together, our work not only provides a deployable compliance solution but also establishes \textbf{AI Governance Informatics} as a new research direction at the intersection of natural language processing, law, and responsible AI \cite{sun2022responsible}.
+
+}

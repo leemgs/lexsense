@@ -1,0 +1,25 @@
+\ifthenelse{\equal{\anonymous}{false}}{%
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author*[1]{\fnm{Geunsik} \sur{Lim}}\email{leemgs@g.skku.edu}
+
+\affil*[1]{\orgdiv{The Department of Electrical and Computer Engineering}, \orgname{Sungkyunkwan University}, \orgaddress{\street{2066, Seobu-ro, Jangan-gu}, \city{Suwon}, \postcode{2066}, \state{Gyeonggi-do}, \country{South Korea}}}
+
+
+}{ %else
+
+\author*[1]{\fnm{Anonymous } \sur{Author(s)}\email{xxx@xxx.edu}
+
+\affil*[1]{\orgdiv{Department}, \orgname{Organization Name}, \orgaddress{\street{Street}, \city{City}, \postcode{xxxxxx}, \state{State}, \country{Country}}}
+
+        $^{\textsuperscript{}}$\
+        {\color{blue} \\ (DRAFT), Printed on \customdate\today \ for IJCAI 2026 }
+        }
+} % end of if

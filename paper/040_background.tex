@@ -1,0 +1,106 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+본 장에서는 기존 접근 방식을 검토하고, 그 한계를 강조하며, NLP/LLM의 발전을 정리하고, \textbf{AI 거버넌스 정보학(AI Governance Informatics)} 제안을 동기부여하는 개념적 공백을 명확히 한다.
+
+\subsection{규제 모니터링 접근법}
+AI 거버넌스의 가속화는 기존 모니터링 도구의 한계를 드러낸다. \textbf{키워드 기반 알림} (예: Google Alerts, RSS)은 배포가 쉽지만 표면적 일치에 의존하여 불필요한 잡음을 발생시키거나 미묘한 신호를 놓치기 쉽다 \cite{xu2023governance}. \textbf{수작업 분석가 보고서}는 풍부한 맥락을 제공하지만 느리고 비용이 많이 들며 확장성이 부족하다 \cite{morley2021ethics}. \textbf{정책 추적기 및 데이터베이스} (예: OECD AI Policy Observatory, MIT Technology Review initiatives)는 업데이트를 통합하지만 실시간 변화에 뒤처지고 관할권 간 불일치를 겪는다 \cite{stix2021ai}.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.25\linewidth}p{0.65\linewidth}}
+\toprule
+접근 방식 & 한계 \\
+\midrule
+키워드 알림 & 맥락 부족, 높은 오탐률 \\
+수작업 보고서 & 정확하나 비용 높고 업데이트 느림 \\
+정책 추적기 & 지연된 반영, 관할권 격차 \\
+\bottomrule
+\end{tabular}
+\caption{기존 규제 모니터링 접근법의 한계.}
+\end{table}
+
+\subsection{법률 및 정책 텍스트를 위한 NLP와 LLM}
+초기 연구들은 규칙 기반 조항 추출, 계약 분석, 법률 검색에 NLP를 적용하였다 \cite{amershi2019guidelines}. 최근 GPT-4, LLaMA-4와 같은 대규모 언어 모델(LLMs)의 발전은 강력한 의미 추론과 요약 능력을 보여주고 있다 \cite{openai2023gpt4,touvron2023llama2}. 그러나 체계적인 규제 모니터링에의 활용은 여전히 탐구되지 않은 영역이다. 일부 연구는 LLM이 분류 및 해석에서 정적 방법을 능가할 수 있음을 보여주지만 \cite{zhao2023surveyllm}, 거버넌스 과제를 위한 통합 프레임워크는 존재하지 않는다.
+
+\subsection{책임 있는 AI와 거버넌스 프레임워크}
+병행 연구에서는 공정성, 투명성, 책임성과 같은 책임 있는 AI 원칙을 강조한다. Model Cards, 문서화 실천, 신뢰할 수 있는 AI 가이드라인 등은 배포 시 해석 가능성과 윤리의 중요성을 강조한다 \cite{bender2021stochastic,bommasani2021foundation}. 그러나 대부분은 개념적 수준에 머무르며 운영 모니터링 시스템에 내재화되지 않았다 \cite{sun2022responsible,vincent2022ai}.
+
+\subsection{연구 공백}
+현행 방법들은 관할권을 넘나드는 확장 가능하고 실시간적이며 의미론적으로 견고한 모니터링을 제공하지 못한다. 더 나아가 윤리적 안전장치(편향, 프라이버시, 책임성)는 시스템 설계에 거의 통합되지 않았다 \cite{caliskan2017bias}. 이는 본 연구의 동기를 제공한다: 규제 모니터링을 진전시키고 \textbf{AI 거버넌스 정보학}을 새로운 연구 영역으로 확립하기 위한 모듈형 LLM 기반 프레임워크.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{p{2.0cm} p{3.3cm} p{5.0cm}}
+\toprule
+ & \textbf{법률 정보학} & \textbf{AI 거버넌스 정보학 (본 연구)} \\
+\midrule
+주요 초점 & 검색, 조항/요소 추출, 법률 QA & \textbf{규제 변화 감지} $\rightarrow$ \textbf{의미 기반 분류} $\rightarrow$ \textbf{LLM 보고} (엔드투엔드) \\
+시간성 & 정적/주기적 업데이트 & \textbf{준실시간} 변화 감지 및 드리프트 대응 \\
+범위 & 법률 텍스트 (법, 계약, 판례) & + 정책/가이드라인, \textbf{AI 자산 공개}, 다관할권 소스 \\
+핵심 방법 & 규칙/IR + 전통적 NLP & \textbf{LLM 추론}, 근거 기반 설명 가능성, RLHF 기반 피드백 \\
+출력 & 문서/조각 & \textbf{출처 포함 구조화·감사 가능 보고서} \\
+윤리의 역할 & 문서화 원칙 & \textbf{내재된} 편향 감사, 프라이버시 설계, 공정성 인식 튜닝 \\
+\bottomrule
+\end{tabular}
+}
+\caption{법률 정보학과 \emph{AI 거버넌스 정보학}의 개념적 차이.}
+\label{tab:conceptual}
+\end{table}
+
+ 
+}{%
+This section reviews existing approaches, highlights their limitations, situates advances in NLP/LLMs, and clarifies the conceptual gap motivating our proposal of \textbf{AI Governance Informatics}.
+
+\subsection{Regulatory Monitoring Approaches}
+The accelerating pace of AI governance highlights the limitations of existing monitoring tools. \textbf{Keyword-based alerts} (e.g., Google Alerts, RSS) are easy to deploy but rely on surface-level matches, often generating irrelevant noise or missing nuanced signals \cite{xu2023governance}. \textbf{Manual analyst reports} provide rich context but are slow, costly, and lack scalability \cite{morley2021ethics}. \textbf{Policy trackers and databases} (e.g., OECD AI Policy Observatory, MIT Technology Review initiatives) consolidate updates but lag behind real-time changes and suffer from jurisdictional inconsistencies \cite{stix2021ai}.
+
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.25\linewidth}p{0.65\linewidth}}
+\toprule
+Approach & Limitation \\
+\midrule
+Keyword alerts & Misses context, high false positives \\
+Manual reports & Accurate but costly, slow to update \\
+Policy trackers & Delayed coverage, jurisdiction gaps \\
+\bottomrule
+\end{tabular}
+\caption{Limitations of existing monitoring approaches.}
+\end{table}
+
+\subsection{NLP and LLMs for Legal and Policy Texts}
+Early work applied NLP to rule-based clause extraction, contract analysis, and legal retrieval \cite{amershi2019guidelines}. Recent advances in large language models (LLMs) such as GPT-4 and LLaMA-4 demonstrate strong semantic reasoning and summarization capabilities \cite{openai2023gpt4,touvron2023llama2}. However, their use in systematic regulatory monitoring remains underexplored. Studies suggest LLMs can outperform static methods in classification and interpretation \cite{zhao2023surveyllm}, but no unified frameworks exist for governance tasks.
+
+\subsection{Responsible AI and Governance Frameworks}
+Parallel research emphasizes responsible AI principles, including fairness, transparency, and accountability. Efforts such as Model Cards, documentation practices, and trustworthy AI guidelines highlight the importance of interpretability and ethics in deployment \cite{bender2021stochastic,bommasani2021foundation}. Yet, most remain conceptual and are not embedded into operational monitoring systems \cite{sun2022responsible,vincent2022ai}.
+
+\subsection{Research Gap}
+Current methods fail to deliver scalable, real-time, and semantically robust monitoring across jurisdictions. Moreover, ethical safeguards (bias, privacy, accountability) are rarely integrated into system design \cite{caliskan2017bias}. This motivates our work: a modular, LLM-driven framework that advances regulatory monitoring and establishes \textbf{AI Governance Informatics} as a new research frontier.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{p{2.0cm} p{3.3cm} p{5.0cm}}
+\toprule
+ & \textbf{Legal Informatics} & \textbf{AI Governance Informatics (This Work)} \\
+\midrule
+Primary Focus & Retrieval, clause/element extraction, legal QA & \textbf{Regulatory change sensing} $\rightarrow$ \textbf{semantic classification} $\rightarrow$ \textbf{LLM reporting} (end-to-end) \\
+Temporality & Static/periodic updates & \textbf{Near real-time} change detection and drift-aware adaptation \\
+Scope & Legal texts (laws, contracts, cases) & + Policy/guidelines, \textbf{AI asset releases}, multi-jurisdiction sources \\
+Method Core & Rules/IR + classical NLP & \textbf{LLM reasoning}, evidence-linked explainability, RLHF-inspired feedback \\
+Outputs & Documents/fragments & \textbf{Structured, auditable reports} with provenance \\
+Role of Ethics & Documentation principles & \textbf{Built-in} bias audits, privacy-by-design, fairness-aware tuning \\
+\bottomrule
+\end{tabular}
+}
+\caption{Conceptual distinction between Legal Informatics and \emph{AI Governance Informatics}.}
+\label{tab:conceptual}
+\end{table}
+
+
+}

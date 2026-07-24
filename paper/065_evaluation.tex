@@ -1,0 +1,116 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+우리는 자동화된 AI 동향 감지 시스템인 \textbf{LexSense}를 분류 정확도, 지연(latency), 효율성, 사용자 만족도 등 여러 차원에서 평가하였다. 본 평가의 목표는 대규모 규제 데이터를 처리하고, 실행 가능한 인사이트를 생성하며, 기업 분석가의 의사결정 업무를 지원하는 데 있어 시스템의 효과성을 입증하는 것이다 \cite{xu2023governance,henderson2023ai}.
+
+\subsection{데이터셋}
+평가에는 3개월 동안 수집된 1,200건의 규제 및 법적 업데이트가 포함된 데이터셋을 사용하였다. 여기에는 정책 발표, 법적 제출 문서, 여러 관할권의 컴플라이언스 가이드라인이 포함된다. 추가로, 기술 자산의 분류 및 맥락화 능력을 평가하기 위해 250건의 AI 모델 및 데이터셋 공개 자료를 통합하였다. 정량적 평가를 보완하기 위해, 컴플라이언스 및 AI 거버넌스를 전문으로 하는 12명의 기업 분석가를 대상으로 사용자 연구도 수행하였다 \cite{EUAIAct2024,usExecOrder2023}.
+
+\subsection{평가지표}
+성능 평가는 네 가지 주요 지표를 통해 수행되었다: (1) 정밀도(Precision)와 재현율(Recall) — NLP와 정보 검색에서 널리 사용됨 \cite{devlin2019bert,raffel2020t5}; (2) 지연(Latency) — 변화 탐지부터 구조화된 보고서 생성까지 걸린 시간으로 정의되며, 효율적 어텐션 및 메모리 최적화 기법과 연계됨 \cite{dao2022flashattention,frantar2023qlora}; (3) 분석가 만족도(Analyst Satisfaction) — 1~5 점 척도로 사용자 신뢰 및 보고서의 유용성을 반영 \cite{amershi2019guidelines,zhang2023copilot}; (4) 워크플로우 효율성(Workflow Efficiency) — 수작업 대비 준비 시간 감소율로 측정 \cite{mitchell2021ai,vincent2022ai}.
+
+\subsection{정량적 결과}
+표~\ref{tab:performance}는 네 가지 주요 감지 범주별 성능을 요약한다. 시스템은 일관되게 높은 정밀도와 재현율을 달성하면서 낮은 지연 시간을 유지하였다. 벤치마크는 GPT-3, GPT-4, LLaMA-4와 같은 최신 LLM 평가 결과와 비교하였다 \cite{brown2020gpt3,openai2023gpt4,touvron2023llama2}.
+
+\begin{table}[t]
+\centering
+\small
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\hline
+\textbf{작업} & \textbf{정밀도} & \textbf{재현율} & \textbf{지연 (s)} \\
+\hline
+규제 분류 & 0.89 & 0.86 & 2.1 \\
+계약 추출 & 0.93 & 0.88 & 3.2 \\
+소송 모니터링 & 0.91 & 0.84 & 2.7 \\
+AI 자산 분류 & 0.91 & 0.90 & 1.9 \\
+\hline
+\end{tabular}
+}
+\caption{감지 범주별 성능 지표.}
+\label{tab:performance}
+\end{table}
+
+\subsection{사용자 연구}
+사용자 연구 결과, 분석가의 워크플로우가 크게 개선되었음을 확인하였다. 참여자들은 \textbf{보고서 준비 시간 70\% 감소}를 보고했으며, 자동화된 요약에 대한 신뢰도 또한 증가하였다. 평균 만족도 점수는 5점 만점에 4.2점이었으며, 분석가들은 중요한 이벤트 커버리지가 향상되고 규제 변화를 놓칠 가능성이 줄어들었다고 응답하였다 \cite{morley2021ethics,sun2022responsible}.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fig-ablation_study.png}
+    \caption{
+    \textbf{소거(ablation) 연구 결과.}
+    LLM 추론을 제거하면 분류 정밀도와 사용자 만족도가 크게 하락하여, 의미론적 해석의 중요성을 강조한다.
+    }
+    \label{fig:ablation}
+\end{figure}
+
+\subsection{소거 연구}
+LexSense 파이프라인 내 LLM 추론의 기여를 평가하기 위해, 해당 구성 요소를 제거한 소거 연구를 수행하고 전체 시스템과 결과를 비교하였다. 그림~\ref{fig:ablation}에 나타난 바와 같이, LLM 추론이 없을 경우 분류 정밀도가 14\% 감소하였고 사용자 만족도 점수 역시 눈에 띄게 하락하였다. 이는 LLM이 가능하게 하는 의미 기반 해석이 정확한 분류와 신뢰할 수 있는 분석가 지원에 필수적임을 보여준다 \cite{bommasani2021foundation, weidinger2021taxonomy, bender2021stochastic}.
+
+\subsection{결과 논의}
+평가 결과, 제안된 시스템은 높은 정확도와 효율성을 달성할 뿐만 아니라 실제 컴플라이언스 과제에서 실질적인 이점을 제공함을 보여준다. 정량적 개선과 정성적 신뢰 향상을 결합함으로써, 본 프레임워크는 AI 거버넌스와 규제 모니터링을 위한 실용적 인프라로서의 역할을 입증한다
+
+
+}{%
+
+ 
+We evaluated the Automated AI Trend Sensing System, \textbf{LexSense}, across multiple dimensions, including classification accuracy, latency, efficiency, and user satisfaction. The goal of the evaluation was to demonstrate the system’s effectiveness in handling large-scale regulatory data, generating actionable insights, and supporting enterprise analysts in decision-making tasks \cite{xu2023governance,henderson2023ai}.
+
+The full implementation of our proposals (including all the methods proposed in Section \ref{sec:lexsense}) is available here: https://github.com/leemgs/lexsense. The source code will evolve considering future works.
+
+\subsection{Datasets}
+The evaluation utilized a dataset consisting of 1,200 regulatory and legal updates collected over a three-month period. These included policy announcements, legal filings, and compliance guidelines from multiple jurisdictions. In addition, the dataset incorporated 250 releases of AI models and datasets to assess the system’s ability to classify and contextualize technological assets. To complement the quantitative evaluation, we conducted a user study with 12 enterprise analysts specializing in compliance and AI governance \cite{EUAIAct2024,usExecOrder2023}.
+
+\subsection{Metrics}
+We measured performance using four primary metrics: (1) Precision and Recall, widely used in NLP and information retrieval \cite{devlin2019bert,raffel2020t5}; (2) Latency, defined as the time taken from detecting a change to generating a structured report, aligning with efficient attention and memory optimization methods \cite{dao2022flashattention,frantar2023qlora}; (3) Analyst Satisfaction, a qualitative score (1–5) reflecting user trust and perceived usefulness of generated reports \cite{amershi2019guidelines,zhang2023copilot}; and (4) Workflow Efficiency, measured as the relative reduction in preparation time compared to manual processes \cite{mitchell2021ai,vincent2022ai}.
+
+
+\subsection{Quantitative Results}
+Table~\ref{tab:performance} summarizes performance across four key sensing categories. The system achieved consistently high precision and recall while maintaining low latency. Benchmarks were compared against trends in recent LLM evaluations such as GPT-3, GPT-4, and LLaMA-4 \cite{brown2020gpt3,openai2023gpt4,touvron2023llama2}.
+\begin{table}[t]
+\centering
+\small
+%\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\hline
+\textbf{Task} & \textbf{Precision} & \textbf{Recall} & \textbf{Latency (s)} \\
+\hline
+Governance Classification & 0.89 & 0.86 & 2.1 \\
+Contract Extraction       & 0.93 & 0.88 & 3.2 \\
+Lawsuit Monitoring        & 0.91 & 0.84 & 2.7 \\
+AI Asset Categorization   & 0.91 & 0.90 & 1.9 \\
+\hline
+\end{tabular}
+
+\caption{Performance metrics across sensing categories.}
+\label{tab:performance}
+\end{table}
+
+
+\subsection{User Study}
+The user study revealed significant improvements in analyst workflows. Participants reported a \textbf{70\% reduction in report preparation time}, alongside higher trust in automated summaries. The average satisfaction score was 4.2 out of 5, with analysts noting improved coverage of critical events and reduced likelihood of missed regulatory changes \cite{morley2021ethics,sun2022responsible}.
+
+\begin{figure}[t]
+    \centering
+    \small
+    \includegraphics[width=0.7\linewidth]{fig-ablation_study.png}
+    \caption{
+    \textbf{Ablation study results.}
+    Removing LLM reasoning significantly decreased classification precision and user satisfaction, underscoring the critical role of semantic interpretation.
+    }
+    \label{fig:ablation}
+\end{figure}
+
+\subsection{Ablation Study}
+To assess the contribution of LLM reasoning within the LexSense pipeline, 
+we conducted an ablation study by removing this component and comparing results 
+against the full system. As illustrated in Figure~\ref{fig:ablation}, 
+the absence of LLM reasoning resulted in a 14\% drop in classification precision 
+and a notable decline in user satisfaction scores. These findings highlight the 
+critical role of semantic interpretation enabled by LLMs, confirming that 
+structured reasoning is indispensable for accurate classification and reliable 
+analyst support \cite{bommasani2021foundation, weidinger2021taxonomy, bender2021stochastic}.
+
+
+\subsection{Discussion of Results}
+The evaluation demonstrates that the proposed system not only achieves strong accuracy and efficiency but also provides measurable benefits for real-world compliance tasks. By combining quantitative improvements with qualitative trust gains, the framework validates its role as a practical infrastructure for AI governance and regulatory monitoring \cite{caliskan2017bias,carlini2021extracting,stix2021ai}.
+
+}

@@ -1,0 +1,66 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{fig-system_architecture.png}
+  \caption{\textbf{LexSense 시스템 아키텍처.} 다섯 개의 모듈형 구성요소—탐지, 수집, 분석, 보고, 시각화—가 함께 작동하여 확장 가능하고, 의미 기반이며, 투명한 AI 규제 모니터링을 가능하게 한다.}
+  \label{fig:architecture}
+\end{figure}
+
+설계 목표는 세 가지이다: (1) \textbf{확장성(scalability)} — 가속화되는 AI 관련 규제 업데이트의 속도를 수용하기 위함 \cite{xu2023governance, henderson2023ai}; (2) \textbf{의미적 깊이(semantic depth)} — 키워드 수준을 넘어서는 미묘한 의미를 포착하기 위함 \cite{morley2021ethics, vincent2022monitoring}; (3) \textbf{투명성(transparency)} — 기업 의사결정과 거버넌스를 지원할 수 있는 구조화되고 설명 가능한 출력을 생성하기 위함이다 \cite{stix2021principles, mitchell2021modelcards}.
+
+\subsection{시스템 아키텍처}
+그림~\ref{fig:architecture}은 시스템 아키텍처를 보여주며, 이는 다섯 개의 핵심 구성 요소로 이루어져 있다.
+~\\
+\textbf{1) 변화 탐지기(Change Detector):} 규제 소스, 정부 포털, 뉴스 매체, 기술 저장소를 지속적으로 모니터링하여 새로운 콘텐츠나 업데이트를 감지한다. 분산 크롤러와 스트리밍 파이프라인을 활용해 거의 실시간으로 후속 분석을 촉발한다 \cite{vincent2022ai, xu2023governance}.
+~\\
+\textbf{2) 데이터 수집기(Data Collector):} 정책 데이터베이스, 법률 문서, 산업 보고서, AI 모델 공개 노트 등 이질적 정보를 집계한다. API 기반 수집과 적응형 웹 스크래핑 모듈을 병행하여 다양한 관할권과 언어를 포괄한다 \cite{sun2022responsible}.
+~\\
+\textbf{3) 처리 및 분석 모듈(Processing and Analysis Module):} 개체 인식, 조항 추출, 이벤트 분류를 위해 NLP 파이프라인을 적용한다. Transformer 기반 인코더(BERT, T5)를 도메인 특화 분류체계와 결합하여 규제 및 컴플라이언스 신호의 구조화된 표현을 가능케 한다 \cite{devlin2019bert, raffel2020t5}.
+~\\
+\textbf{4) LLM 기반 리포터(LLM-Based Reporter):} GPT-4, LLaMA-4 및 법률 도메인 특화 파인튜닝 모델을 활용하여 구조화된 요약을 생성하고, 계약 조항을 강조하며, 다중 출처 규제 정보를 종합한다 \cite{openai2023gpt4, touvron2023llama2}. 또한 RLHF(인간 피드백을 통한 강화학습)에서 영감을 얻은 루프를 적용하여 분석가의 교정을 반영함으로써 사실 정확성을 높이고 환각을 줄인다 \cite{bommasani2021foundation, weidinger2021taxonomy}.
+~\\
+\textbf{5) 시각화 및 분석가 인터페이스(Visualization and Analyst Interface):} 대시보드와 인터랙티브 리포트를 제공하며, 역할 기반 접근 제어를 지원한다. 인간–AI 상호작용 설계 원칙을 반영하여 신뢰, 해석 가능성, 협업 워크플로우를 강조한다 \cite{amershi2019guidelines, zhang2023copilot}.
+
+\subsection{구현 세부사항}
+시스템은 마이크로서비스 지향 아키텍처로 구현되어 모듈성과 확장성을 극대화한다. \textbf{데이터 수집:} 분산 크롤러가 Apache Kafka 큐에서 실행되어 50개 이상의 소스로부터 병렬적이고 내결함성 있는 데이터 수집을 수행한다 \cite{xu2023governance}. \textbf{전처리 파이프라인:} Transformer 기반 인코더를 규제 코퍼스에 파인튜닝하여 조항 추출 성능을 향상시키고 불필요한 법률 텍스트 잡음을 줄인다 \cite{devlin2019bert, raffel2020t5}. \textbf{모델 배포:} LLM 기반 리포터는 컨테이너화된 서비스로 배포되며, 온프레미스 GPU와 클라우드 가속기를 모두 지원한다. QLoRA와 같은 메모리 효율적 기법을 적용해 파인튜닝 및 추론을 최적화한다 \cite{frantar2023qlora}. \textbf{피드백 루프:} 분석가 교정 내용은 기록 후 재학습에 반영되어 분류 정확도와 보고 품질을 점진적으로 향상시킨다. \textbf{재현성:} 전체 구현, 데이터 준비 스크립트, Docker 기반 환경을 GitHub\footnote{리뷰 블라인드 심사를 위해 저장소는 익명화 처리됨}에 공개하여 IJCAI 재현성 가이드라인을 준수한다 \cite{mitchell2021ai}.
+
+\subsection{설계 원칙}
+세 가지 설계 원칙이 아키텍처를 형성하였다: \textbf{(1) 모듈성(Modularity)} — 각 하위 시스템(탐지, 수집, 분석, 보고, 시각화)이 독립적으로 업데이트될 수 있어 새로운 LLM이나 규제 데이터 소스와의 통합이 용이하다 \cite{narayanan2021efficient, rajbhandari2020zero}; \textbf{(2) 효율성(Efficiency)} — 엔드투엔드 자동화를 통해 탐지와 보고 간의 지연을 최소화하여 분석가의 업무를 줄이고, 준실시간 컴플라이언스 모니터링을 가능케 한다 \cite{dao2022flashattention, huang2019gpipe}; \textbf{(3) 투명성(Transparency)} — 산출물이 구조화되고 설명 가능하며 감사 가능하도록 설계되어, 근거 기반 보고와 출처 메타데이터가 컴플라이언스 민감 도메인에서의 신뢰와 책임성을 뒷받침한다 \cite{stix2021principles, morley2021ethics}. 전체적으로, 본 설계는 확장성뿐 아니라 재현성, 사용성, 책임 있는 배포를 강조하며, 자동화된 감지가 과학적으로 엄밀하면서도 빠르게 진화하는 AI 거버넌스 환경에서 실질적으로 영향을 미칠 수 있도록 한다 \cite{stix2021ai, bommasani2021foundation}.
+
+}{%
+
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\linewidth]{fig-system_architecture}
+  \caption{\textbf{LexSense System Architecture.} Five modular components—detection, collection, analysis, reporting, and visualization—work together to enable scalable, semantic, and transparent AI regulatory monitoring.}
+  \label{fig:architecture}
+\end{figure}
+
+
+The design goals are threefold: (1) \textbf{scalability}, to accommodate the accelerating velocity of AI-related regulatory updates \cite{xu2023governance, henderson2023ai}; (2) \textbf{semantic depth}, to capture nuanced meanings beyond keyword-level monitoring \cite{morley2021ethics, vincent2022monitoring}; and (3) \textbf{transparency}, to generate structured and explainable outputs that support enterprise decision-making and governance \cite{stix2021principles, mitchell2021modelcards}.
+
+
+\subsection{System Architecture}
+Figure~\ref{fig:architecture} illustrates the system’s architecture, which is composed of five core components:
+~\\
+\textbf{1) Change Detector:} Continuously monitors regulatory sources, government portals, news outlets, and technical repositories for new or updated content. Using distributed crawlers and streaming pipelines, it triggers downstream analysis in near real time \cite{vincent2022ai, xu2023governance}.
+~\\
+\textbf{2) Data Collector:} Aggregates heterogeneous information from policy databases, legal filings, industry reports, and AI model release notes. Both API-based ingestion and adaptive web-scraping modules are employed to ensure coverage across jurisdictions and languages \cite{sun2022responsible}.
+~\\
+\textbf{3) Processing and Analysis Module:} Applies NLP pipelines for entity recognition, clause extraction, and event classification. Transformer-based encoders (BERT, T5) are integrated with domain-specific taxonomies, enabling structured representation of governance and compliance signals \cite{devlin2019bert, raffel2020t5}.
+~\\
+\textbf{4) LLM-Based Reporter:} Employs large language models (GPT-4, LLaMA-4, and fine-tuned legal-domain models) to generate structured summaries, highlight contractual clauses, and synthesize multi-source regulatory insights \cite{openai2023gpt4, touvron2023llama2}. A reinforcement learning with human feedback (RLHF)-inspired loop incorporates analyst corrections to improve factual accuracy and reduce hallucinations \cite{bommasani2021foundation, weidinger2021taxonomy}.
+~\\
+\textbf{5) Visualization and Analyst Interface:} Provides dashboards and interactive reports with role-based access control. Guided by human–AI interaction design principles \cite{amershi2019guidelines, zhang2023copilot}, the interface emphasizes trust, interpretability, and collaborative workflows.
+
+\subsection{Implementation Details}
+The system is implemented using a microservice-oriented architecture to maximize modularity and scalability. \textbf{Data Ingestion:} distributed crawlers run on Apache Kafka queues, enabling parallel and fault-tolerant data collection from over 50 sources \cite{xu2023governance}. \textbf{Preprocessing Pipelines:} transformer-based encoders are fine-tuned on regulatory corpora to improve clause extraction and reduce noise from irrelevant legal text \cite{devlin2019bert, raffel2020t5}. \textbf{Model Deployment:} the LLM-based reporter is deployed via containerized services, supporting both on-premise GPUs and cloud accelerators, with fine-tuning and inference optimized using memory-efficient techniques such as QLoRA \cite{frantar2023qlora}. \textbf{Feedback Loop:} analyst corrections are logged and reintegrated into retraining, gradually refining classification accuracy and report quality over time. \textbf{Reproducibility:} we release the full implementation, dataset preparation scripts, and Dockerized environments on GitHub.
+
+
+
+\subsection{Design Principles}
+Three guiding principles shaped our architecture: \textbf{(1) Modularity}, where each subsystem—detection, collection, analysis, reporting, and visualization—can be independently updated, facilitating integration with emerging LLMs or regulatory data sources \cite{narayanan2021efficient, rajbhandari2020zero}; \textbf{(2) Efficiency}, where end-to-end automation minimizes latency between detection and reporting, reducing analyst workloads and enabling near real-time compliance monitoring \cite{dao2022flashattention, huang2019gpipe}; and \textbf{(3) Transparency}, where outputs are structured, explainable, and auditable, with evidence-backed reports and provenance metadata supporting trust and accountability in compliance-sensitive domains \cite{stix2021principles, morley2021ethics}. Overall, the design emphasizes not only scalability but also reproducibility, usability, and responsible deployment, ensuring that automated sensing is both scientifically rigorous and practically impactful for navigating the rapidly evolving landscape of AI governance \cite{stix2021ai, bommasani2021foundation}.
+
+
+}

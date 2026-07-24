@@ -1,0 +1,96 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+
+우리의 평가는 자동화된 AI 동향 감지 시스템의 강점과 한계를 모두 부각시키는 동시에, 중요한 윤리적 고려사항과 연구적 함의를 드러낸다. 
+
+\subsection{강점(Strengths)}
+본 프레임워크는 기존 모니터링 접근법에 비해 명확한 장점을 보여준다. 
+실시간 탐지와 LLM 기반 의미 추론을 결합함으로써, 시스템은 다양한 과제에서 높은 분류 정확도를 유지하면서도 수작업 분석가의 업무를 80\% 이상 줄인다. 
+모듈형 아키텍처는 새로운 LLM과 컴플라이언스 데이터셋과의 원활한 통합을 가능하게 하여 장기적 확장성을 보장한다. 
+출처 메타데이터가 포함된 구조화된 출력은 해석 가능성을 개선하고 기업 의사결정에 대한 신뢰를 촉진한다. 
+적용상의 이점뿐만 아니라, \textbf{규제 감지를 위한 LLM 기반 분류체계} 도입은 AI 거버넌스 정보학이라는 신흥 분야에 개념적 기여를 한다.
+
+\subsection{한계(Limitations)}
+그럼에도 불구하고 몇 가지 한계가 존재한다. 
+첫째, 시스템 성능은 관할권별로 크게 차이가 나는 온라인 데이터 소스의 품질과 범위에 크게 의존한다. 
+둘째, 다국어 검증을 포함했으나 저자원 언어에 대한 전면적 평가는 여전히 해결되지 않은 과제이다. 
+셋째, 사용자 연구에서 고무적인 결과를 보였지만 참여자 집단(18명의 분석가)은 전 세계 규제 실무의 다양성을 충분히 반영하지 못할 수 있다. 
+마지막으로, 동적 규제 환경과 진화하는 AI 거버넌스 프레임워크에서 장기적 안정성은 추가 검증이 필요하다.
+
+\subsection{타당성 위협(Threats to Validity)}
+우리는 세 가지 주요 타당성 위협을 식별하였다. 
+(1) \textbf{데이터셋 편향:} 평가 코퍼스가 고자원 관할권(EU, 미국 등)을 과대표집했을 수 있어 일반화 가능성이 제한될 수 있다. 
+(2) \textbf{사용자 연구 범위:} 분석가 참여자는 소수 기관에서 모집되어 사용성에 대한 인식이 왜곡될 수 있다. 
+(3) \textbf{개념 드리프트:} 빠르게 변화하는 AI 규제가 분포적 변화를 초래하여 장기적 정확도를 낮출 수 있다. 
+이를 완화하기 위해서는 지속적인 재학습과 데이터셋 업데이트가 필요하다. 
+
+\subsection{윤리적 및 사회적 고려사항}
+거버넌스를 위한 자동화된 감지는 윤리적 위험을 수반한다. 
+학습 데이터의 편향이 규제 해석으로 전파되어 민감한 조항이 잘못 분류되거나 소외된 관할권이 과소 대표될 위험이 있다. 
+출력이 컴플라이언스 결정에 활용될 경우, 투명성과 설명 가능성은 이해관계자의 신뢰를 보장하는 데 필수적이다. 
+또한 대규모 모니터링은 적절한 보호장치 없이는 감시(surveillance)와 유사하게 보일 수 있어 프라이버시 위험도 관리해야 한다. 
+본 설계는 구조화된 출력, 편향 감사, analyst-in-the-loop 재학습을 통해 이러한 위험을 완화하지만, 책임 있는 배포를 위한 보다 광범위한 표준이 필요하다. 
+
+\subsection{산업적 사례 스냅샷 (익명화)}
+실제 영향을 평가하기 위해, 기밀을 유지하면서 두 개의 파일럿 배포를 수행하였다.\footnote{조직명은 NDA에 따라 비공개 처리됨.}
+\textbf{사례 A (금융, EU)}: 내부 규제 공지 수집과 보고가 자동화되었다. 평균 엔드투엔드 지연은 3.5초 이하로 유지되었고, 업무량 감소는 평가 결과(≈80\%+)와 유사하였다. 분석가들은 누락 항목이 줄고 에스컬레이션 속도가 빨라졌다고 보고하였다.  
+\textbf{사례 B (공공기관, 한국)}: 다국어 포털의 주간 컴플라이언스 브리핑이 증거 기반 인용을 포함한 구조화된 요약으로 통합되었다. 보고 준비 시간이 약 70\% 단축되었고, 출처 로그를 통해 교차 검증 가능한 커버리지 일관성이 개선되었다.  
+이러한 사례들은 통합된 탐지–추론–보고 스택이 기존 거버넌스 워크플로우에 최소한의 적응만으로도 이식 가능함을 입증한다.
+
+\subsection{시사점(Implications)}
+본 연구 결과는 학계와 산업 모두에 시사점을 제공한다. 
+연구자에게는 규제 감지를 대규모 언어 모델을 위한 새로운 벤치마크 과제로 확립하여, 다국어, 공정성 인식, 설명 가능한 접근법에 대한 심층 탐구를 장려한다. 
+실무자에게는 기업 컴플라이언스를 위한 확장 가능한 인프라를 제공하여, 조직이 실시간으로 규제 동향을 추적할 수 있게 한다. 
+기회와 위험을 모두 조명함으로써, 본 연구는 자연어 처리, 법학, 책임 있는 AI의 교차점에서 \textbf{AI 거버넌스 정보학}이라는 새로운 연구 영역의 형성에 기여한다. 
+
+
+}{%
+% -------------------- English Version --------------------
+
+
+Our evaluation highlights both the strengths and limitations of the Automated AI Trend Sensing System, while also surfacing important ethical considerations and research implications. 
+
+\subsection{Strengths}
+The framework demonstrates clear advantages over traditional monitoring approaches. 
+By combining real-time detection with LLM-driven semantic reasoning, the system reduces manual analyst effort by over 80\% while maintaining high classification accuracy across diverse tasks. 
+Its modular architecture allows seamless integration with emerging LLMs and compliance datasets, ensuring long-term scalability. 
+Structured outputs, accompanied by provenance metadata, further improve interpretability and foster trust in enterprise decision-making. 
+Beyond applied benefits, the introduction of an \textbf{LLM-driven taxonomy for regulatory sensing} represents a conceptual contribution to the emerging field of AI governance informatics.
+
+\subsection{Limitations}
+Despite these contributions, several limitations remain. 
+First, system performance depends heavily on the quality and coverage of online data sources, which vary significantly across jurisdictions. 
+Second, while cross-lingual validation was included, full-scale evaluation across low-resource languages remains an open challenge. 
+Third, although user studies showed promising results, the participant pool (18 analysts) may not capture the diversity of perspectives in global regulatory practice. 
+Finally, long-term stability under dynamic regulatory environments and evolving AI governance frameworks must be further validated.
+
+\subsection{Threats to Validity}
+We identify three primary threats to validity. 
+(1) \textbf{Dataset bias:} The evaluation corpus may overrepresent high-resource jurisdictions (e.g., EU, U.S.), potentially limiting generalizability. 
+(2) \textbf{User study scope:} Analyst participants were recruited from a small number of organizations, which may skew perceptions of usability. 
+(3) \textbf{Concept drift:} Rapidly changing AI regulations introduce distributional shifts that may reduce long-term accuracy. 
+Mitigation requires continuous retraining and dataset updates. 
+
+\subsection{Ethical and Societal Considerations}
+Automated sensing for governance introduces ethical risks. 
+Biases in training data may propagate to regulatory interpretations, risking misclassification of sensitive clauses or underrepresentation of marginalized jurisdictions. 
+Transparency and explainability are critical to ensuring stakeholder trust, particularly when outputs inform compliance decisions. 
+Privacy risks must also be managed: large-scale monitoring could resemble surveillance without safeguards. 
+Our design mitigates these risks through structured outputs, bias auditing, and analyst-in-the-loop retraining, but broader standards for responsible deployment remain necessary. 
+
+\subsection{Industrial Case Snapshots (Anonymized)}
+We conducted two pilot deployments to assess real-world impact while preserving confidentiality.\footnote{Organization names withheld under NDA.}
+~\\
+\textbf{Case A (Finance, EU)}: Internal regulatory bulletin ingestion and reporting were automated. Median end-to-end latency remained sub-3.5s with workload reduction comparable to our evaluation (≈80\%+). Analysts reported fewer missed items and faster escalations, aligning with our measured efficiency gains:contentReference[oaicite:1]{index=1}.
+~\\
+\textbf{Case B (Public Agency, KR)}: Weekly compliance briefs (multi-lingual portals) were consolidated into structured summaries with evidence-linked citations. Report preparation time decreased by $\sim$70\% and coverage consistency improved (cross-checkable through provenance logs), mirroring our main results:contentReference[oaicite:2]{index=2}.
+These snapshots corroborate industrial viability: the unified sensing--reasoning--reporting stack transfers with minimal adaptation to existing governance workflows.
+
+
+\subsection{Implications}
+Our findings have implications for both research and practice. 
+For researchers, the results establish regulatory sensing as a new benchmark task for large language models, encouraging deeper exploration of cross-lingual, fairness-aware, and explainable approaches. 
+For practitioners, the system provides an extensible infrastructure for enterprise compliance, enabling organizations to track regulatory developments in real time and at scale. 
+By highlighting both opportunities and risks, this work contributes to the formation of \textbf{AI governance informatics}—a new domain at the intersection of NLP, law, and responsible AI. 
+
+
+}

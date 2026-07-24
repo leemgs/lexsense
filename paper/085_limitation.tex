@@ -1,0 +1,42 @@
+\ifthenelse{\equal{\lang}{ko}}{%
+우리의 결과는 자동화된 규제 감지의 가능성을 보여주지만, 여전히 몇 가지 한계가 남아 있다. 
+~\\
+\textbf{언어 커버리지:} 현재 평가는 영어, 한국어, 프랑스어에 한정되어 있으며, 
+저자원 언어 확장을 위해서는 추가 데이터와 다국어 적응이 필요하다. 
+스페인어, 아랍어, 베트남어에 대한 예비 실험에서는 제로샷 성능이 0.71 macro-F1이었으나, 
+200개의 소수샷 예제를 활용할 경우 0.84로 향상되었다. 
+이는 본 분류체계와 파이프라인이 최소한의 감독으로도 글로벌 적응이 가능함을 시사한다.  
+~\\
+\textbf{개념 드리프트:} 법률 및 정책 환경의 변화는 시간이 지남에 따라 정확도를 감소시킬 수 있다. 
+3개월 롤링 평가에서 F1=0.89에서 0.74로 하락했으나, 
+월별 경량 재학습(3 에폭, 5천 샘플)을 통해 0.88로 회복되었다. 
+향후 연구에서는 자동 드리프트 탐지 및 연속 학습을 통해 지속적인 강건성을 확보할 것이다.  
+\textbf{인간 참여 확장성:} 분석가 피드백은 정확도를 향상시키지만 법률 전문가 의존성이 크므로, 
+소규모 조직을 위해서는 경량화된 프로토콜이 필요하다.  
+\textbf{배포 비용:} QLoRA는 연산 자원 소모를 줄이지만, 
+대규모 활용 시 GDPR 환경에서 비용 및 프라이버시 문제가 여전히 존재한다. 
+~\\
+\textbf{방법론적 혁신(Methodological Innovation):} 
+본 연구는 기존 LLM 및 NLP 기법을 성공적으로 통합하여 규제 모니터링 프레임워크를 구축하였으나, 
+향후 연구에서는 \textit{알고리즘적 독창성}을 강화할 필요가 있다. 
+예를 들어, 규제 문서에 특화된 새로운 프롬프트 엔지니어링 기법을 개발하거나, 
+거버넌스 과제에 최적화된 경량 모델 아키텍처를 설계하는 방법이 있다. 
+또한 인간 전문가 피드백(RLHF 유사 메커니즘)의 정량적 효과를 측정하는 통제 실험을 포함한다면, 
+제안된 파이프라인의 효과성과 신뢰성에 대한 더 강력한 경험적 근거를 제시할 수 있을 것이다. 
+이러한 방법론적 혁신은 LexSense를 고도로 실용적인 시스템에서, 
+학술적으로도 독창성이 높은 기여로 발전시킬 것이다. 
+
+종합적으로, 이러한 한계와 확장은 전 세계적 규모의 AI 거버넌스 정보학으로 나아가는 경로를 제시하며, 
+효율성, 강건성, 그리고 공정성·투명성·프라이버시 원칙과의 정렬을 보장한다.
+
+
+}{%
+
+While our results demonstrate the promise of automated regulatory sensing, several limitations remain. 
+~\\
+\textbf{Language coverage:} current evaluation is limited to English, Korean, and French; extending to low-resource languages requires additional data and multilingual adaptation. Preliminary experiments on Spanish, Arabic, and Vietnamese showed zero-shot performance of 0.71 macro-F1, which improved to 0.84 with 200 few-shot examples, indicating that our taxonomy and pipeline can adapt globally with minimal supervision.
+~\\
+\textbf{Concept drift:} evolving legal and policy landscapes may reduce accuracy over time. In a three-month rolling evaluation, performance dropped from F1=0.89 to 0.74, but lightweight monthly retraining (3 epochs, 5k samples) restored it to 0.88. Future work will explore automated drift detection and continual learning for sustainable robustness. Human-in-the-loop scalability: analyst feedback improves accuracy but depends on legal experts, so lightweight protocols are needed for smaller organizations. Deployment costs: although QLoRA reduces compute demands, large-scale use still faces cost and privacy challenges under GDPR. 
+~\\
+\textbf{Methodological Innovation:} While this work successfully integrates existing LLM and NLP techniques into a unified regulatory monitoring framework, future research should aim to strengthen its \textit{algorithmic originality}. For example, developing novel prompt engineering strategies tailored to regulatory documents or designing lightweight model architectures specialized for governance tasks could go beyond the current integration-based approach. Moreover, including controlled experiments that quantitatively measure the impact of human expert feedback (RLHF-style mechanisms) would provide stronger empirical evidence of the effectiveness and reliability of the proposed pipeline. Such methodological innovations would further elevate LexSense from a highly practical system to a contribution of the highest academic originality. Together, these limitations and extensions illustrate a path toward AI Governance Informatics at global scale, ensuring efficiency, robustness, and alignment with fairness, transparency, and privacy principles. 
+}

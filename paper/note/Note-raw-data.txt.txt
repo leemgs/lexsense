@@ -1,0 +1,426 @@
+Created by 임근식 AI전략팀(CTO) / Geunsik Lim / geunsik.lim, last updated on Mar 04, 2025  1 minute read16 views since Feb 12, 2025
+
+
+
+
+1. 프로젝트 개요
+센싱 리포트 생성 소프트웨어는 최신 기술 동향을 파악하고, 이를 기반으로 한 매주 센싱 리포트를 자동으로 발간하는 시스템입니다.
+
+주요 뉴스, 블로그, 학술 논문 등 다양한 웹사이트에서 데이터를 크롤링하여 가공, 분석 후 사용자에게 유의미한 정보를 제공합니다.
+
+
+
+
+
+2. 목표
+최신 기술 동향 파악: 다양한 웹사이트에서 최신 기술 트렌드를 자동으로 수집 및 분석
+효율적인 정보 제공: 주간 센싱 리포트를 통해 중요 정보를 신속하게 제공
+자동화 시스템 구축: 크롤링, 데이터 분석, 리포트 생성 과정 등의 반복 루틴을  최대한 모두 자동화하여 인건비 및 시간 절감
+
+
+3. 주요 기능
+웹 크롤링
+다양한 웹사이트에서 최신 기술 정보를 주기적으로 수집
+필터링 및 데이터 정제 기능 제공
+데이터 분석 및 가공
+자연어 처리(NLP) 기술을 활용한 데이터 분석
+유사 정보 그룹화 및 중요도 평가
+리포트 생성
+주간 센싱 리포트를 자동 생성
+템플릿 기반 보고서 생성 및 커스터마이징 기능 제공
+알림 및 배포
+이메일 및 웹 포털을 통한 리포트 배포
+리포트 열람 및 다운로드 기능
+
+
+4. 기술 스택
+프로그래밍 언어: Python, JavaScript
+웹 프레임워크: Django 또는 Flask
+데이터베이스: PostgreSQL 또는 MariaDB
+크롤링 도구: Scrapy, BeautifulSoup
+데이터 분석 도구: Pandas, NLTK (Natural Language Toolkit)
+리포트 생성 도구: ReportLab 또는 Jinja2 템플릿
+
+
+5. 일정
+기획 및 설계	2주	요구 사항 분석, 시스템 설계
+개발 및 테스트	6주	크롤링 모듈, 데이터 분석 모듈, 리포트 생성 모듈 개발
+통합 및 배포	2주	모듈 통합, 최종 테스트, 배포
+유지보수	매주	버그 수정, 기능 업데이트
+
+
+6. 개발 범위
+백엔드 개발: 서버 및 데이터베이스 구축, 크롤링 및 분석 모듈 개발
+프론트엔드 개발: 웹 포털 개발 및 사용자 인터페이스 설계
+데이터 분석 : 데이터 정제 및 분석 알고리즘 개발
+
+-----------------------
+
+# Change Detector 
+
+Created by 임근식 AI전략팀(CTO) / Geunsik Lim / geunsik.lim, last updated on Mar 27, 2025  3 minute read93 views since Mar 04, 2025
+
+
+
+
+배경: 
+Idea Sketch
+Change 를 어떻게 실시간 감지 할 것인가? 
+1. Google Alert
+2. Change Detector
+3. 기타
+
+
+배경: 
+새로운 기술들이 나오면  공부하여 따라가는 것이 현재까지의 패턴이었다면,
+
+다가오는 AI 시대에 공부중에 새로운 기술들이 하루가 멀다 하고 매일 엄청나게 쏟아져 나오고 있습니다.
+
+새로운 소식을 윗분들이 우리에게 먼저 전달하기 전에, (동물중 가장 빠른 송골매처럼) 제일 빠르게 
+실무자인 우리가 먼저 새로운 기술을 캐치 및 시사점을 파악하고 선대응하는 것이 중요합니다. 
+
+
+
+
+
+   7,400개 이상의 송골매 스톡 사진, 그림 및 Royalty-Free 이미지 - iStock  
+
+세상에서 가장 빠른 동물로 알려진 송골매 (Peregrine Falcon)
+
+→ 최대 속도 시속 120km에 달하며 2초 안에 시속 70km까지 속도를 올릴 수 있다고 알려졌다.
+→ 사진출처: Wikimedia Commons
+
+
+
+
+
+Idea Sketch
+현재 "AI 규제 센싱" 태스크는 (1) 거버넌스, (2) 계약, (3) 소승 등 3가지 항목으로 구성되어 있으며, 이 작업들은 현재 사람의 노고로 관리되고 있습니다.
+
+당장은 사람의 수고를 계속 이어가야 하지만, 향후에는 아래의 TO-BE 그래프에서 보여주는 것처럼 완전한 자동화를 목표로 하고 있습니다.
+
+이를 위해 작업 단계를 STEP 1과 STEP 2로 나누어 계획하고 있습니다. 
+
+이러한 단계적 접근을 통해 효율성을 높이고, 인적 자원에 대한 의존도를 줄여 나갈 것입니다.
+
+
+
+Change Detector
+
+Google Alert
+Specified
+Webpages
+TO-BE 
+STEP 1
+* 검색 키워드 (계약현황 예시):
+* 검색 키워드 (거버넌스 현황 예시):
+* 검색 키워드 (소송현황 예시):
+ai data lawsuit
+ai data sue
+ai data classaction
+ai data copyright
+ai data privacy
+scraping lawsuit 
+Change
+Push Service
+Change
+Detection
+Service
+As-IS
+(Now)
+Change Detector
+
+Google Alert
+Specified
+Webpages
+TO-BE 
+STEP2
+* 검색 키워드 (계약현황 예시):
+* 검색 키워드 (거버넌스 현황 예시):
+* 검색 키워드 (소송현황 예시):
+ai data lawsuit
+ai data sue
+ai data classaction
+ai data copyright
+ai data privacy
+scraping lawsuit 
+Change
+Push Service
+Change
+Detection
+Service
+AAH 
+DB
+AAH Website (Front-end)
+사람
+(AI Agent)
+
+
+
+
+
+Change 를 어떻게 실시간 감지 할 것인가? 
+1. Google Alert
+키워드 중심으로 원하는 시간에 new change 내용을 이메일로 알림 받는 기능입니다. 
+
+https://www.google.com/alerts
+
+
+
+
+2. Change Detector
+"Change Detector는 웹사이트의 변화된 내용과 새로운 기술 정보를 (예: AI 거버넌스, AI 데이타 계약 현황, AI 데이타 관련 소송 현황 등) 실시간으로 모니터링하여,
+
+사용자가 설정한 기준에 따라 즉시 이메일로 알림을 제공하는 시스템으로, 빠르게 변화하는 기술 환경에 선제적으로 대응할 수 있도록 지원합니다."
+
+
+
+
+
+이용 예시: 
+
+웹사이트에 새로운 기술이 포스팅될 때 변화된 내용과 요약 사항을 이메일로 즉시 수신받기 위한 시스템,
+예를 들어 Change Detector를 개발용 우분투 PC에서 구동하여 운영함으로써 빠르게 새 소식을 알림받을 수 있습니다.
+
+
+
+
+
+
+
+
+
+아래는 신규 소식 (변경사항)이 있는지 검색하고 찾는 구조에서 신규소식을 push service 구조로 이메일 수신 하는 예시 입니다. 
+
+
+
+
+
+Items needed to customize the open-source Change Detection.io : https://github.sec.samsung.net/SR-One-Data-Office/changedetection.io
+
+base.html (in //app/changedetectionio/templates/)
+favicon.ico  (in /app/changedetectionio/static/favicons/)
+SRnD_Web_Proxy_new.crt (in /usr/share/ca-certificates/proxysg/)
+changedetectioniogit_changedetection-data.20250319-1500.tar.gz (Snapshot configuration  data, 2025/03/19 15:00)
+
+
+
+
+
+
+3. 기타
+RSS (Really Simple Syndication)
+Mailing List 
+
+
+
+
+이상.
+
+------------------------
+## Data Collector
+
+Overall System Structure for Data Collector
+아래의  그림을 새로운 정보의  Detect한후에 해당 웹주소에서  관련 내용들을 가져오기 위해 동작하는 Data Collector 컴포넡의 시스템 동작 구조를 나타냅니다. 
+
+
+
+Newspaper3k Python Library
+(Article scraping & curation)
+
+
+
+
+
+
+
+Sensing
+AI 규제
+(거버넌스, 계약, 소송)
+AI 동향
+(Dataset, Model, Agent)
+
+
+
+
+
+AAH 서비스
+Data 검토
+(라이센스, 데이터출처)
+카드 자동생성
+(데이터 카드, 모델 카드)
+Virtualenv
+(Isolated Pytnon Environment)
+Scrape and extract data
+using Newspaper3k
+Pre-porocessing (for tokenizer)
+and Keyword analysis (for semantic reasoning)
+using NLTK
+Data Collector
+
+                                        [ System Structure of Data Collector ] 
+
+
+
+
+
+Github Repo 주소
+https://github.sec.samsung.net/SR-One-Data-Office/data-collector
+
+
+
+---------------------------------
+
+
+## LLM-based sensing reporter 
+
+
+LLM-based Sensing Reporter (Insight)
+Created by 임근식 AI전략팀(CTO) / Geunsik Lim / geunsik.lim, last updated on May 12, 2025  1 minute read50 views since Feb 19, 2025
+
+
+
+
+
+
+
+
+Sensing Agent
+
+
+
+
+
+
+LLM API
+Vector DB
+Auto-Generation Module
+AI규제
+Services
+Service
+Framework
+Agent Builder
+Custom  RAG Template
+추론 서버
+
+Gauss-37B
+Gauss-37x8B
+AI동향
+DataCard
+ModelCard
+Data 검토
+(Lic., Data Src)
+
+                                                      Overall System Structure of Sensing Reporter
+
+
+----------------------
+
+## System Prompt BOok 
+
+
+Prompt Book
+
+
+
+2025	AI Regulation	센싱: AI규제	
+AI 규제 분류: 위의 내용을 한국어로 제목, 요점, 결론, 파급효과, 시사점, 관련 기사 링크 등을 한글로 정리해주세요. 위의 내용은 거버넌스, 소송, 계약 중에서 어디 카테고리에 속하는지 판별하세요. 
+1. 위의 내용이 "소송" 카테고리에 해당한다면, 소송 날자, 소송번호, 소송 유형, 원고, 원고측 변호사, 피고, 피고측 변호사, 법원, 소송 대상 제품, 데이터, 소송 이유, 소송 금액, Tracker, 관련 링크, 개요, 배경, 진행현황 (예:시작, 소송진행중, 판결, 항소 진행중, 종료), 비고 등을 한국어로 작성하여주세요.  
+2. 위의 내용이 "거버넌스" 카테고리에 해당한다면,  제목, 제공자, 제공처, 발생일자, 개요, 배경, 거버넌스 정보 요점 (요약 한줄, 요점 포인트 3가지), 결론, 파급효과, 시사점, 관련 기사 링크 등을 한국어로 작성하여 주세요
+3. 위의 내용이 "계약" 카테고리에 해당한다면, 제목, 계약일자, 계약 유형, 계약 데이터, 계약 금액, 데이터 타입 (예: 텍스트, 이미지, 오디오, 비디오), 개요(A4 반장 분량), 관련 기사 링크, 공급자, 구매자, 적용 대상, 진행현황 등을 한국어로 작성하여주세요.
+
+
+
+2025	AI Asset Trend	센싱: AI동향
+(Asset 중심)	AI Asset 동향 분류:  위의 내용을 한글로 제목, 요점, 결론, 파급효과, 시사점, 관련 기사 링크 등을 한국어로 정리해주세요. 위의 내용은 데이타셋, AI모델, Agent 중에서 어디 카테고리에 속하는지 판별하세요. 
+1 . 위의 내용이 "데이타셋" 카테고리에 해당한다면, 제공자, 공개 일자, 데이타셋 명칭, 라이센스, 데이타셋 정보, 데이타셋 수집방법  (예: 크롤링, 자체제작, 구매, 기타), 파급효과, 시사점, 관련 주소 등을  한국어로 정리해주세요. 
+2 . 위의 내용이 "AI모델" 카테고리에 해당한다면,  제공자, 공개 일자, 모델 명칭, 라이센스, 상업적 사용 가능여부, 모델 정보요점 (요약 한줄, 요점 포인트 3가지), 추론위핸 필요한 GPU 메모리 용량, 파급 효과, 시사점, 관련 주소 등을 한국어로 정리해주세요. 
+3 . 위의 내용이 "Agent" 카테고리에 해당한다면,  제공자, 공개 일자, Agent 명칭, Agetn 프레임웍 명칭, Agent 프레임웍 라이센스, Agent 정보, 파급 효과, 시사점, 관련 주소 등을 한국어로 정리해주세요. 
+2025	data_review	데이터 검토	
+위의 데이타셋 내용으로부터 아래의 라이센스 정보와 데이타셋 출처 정보들을 수집 및 요약 정리해야 합니다. 
+
+1. 라이센스: 위의 내용으로부터 한국어로 라이센스 내용을 요약 정리 해주세요. 그리고 해당 라이센스를 상업적인 사용용도로 사용이 가능한지 요약 정리해주세요. 
+2. 데이타셋 출처: 위의 내용으로부터 dataset의 출처가 크롤링인지, 자체제작인지, 구매한것인지 등에 대해 한국어로 요약 정리해주세요.
+
+2025
+
+card
+
+모델 카드 
+
+참조 템플릿: https://huggingface.co/microsoft/Phi-4-reasoning-plus
+업로드 하려고 하는 해당 AI 모델의 모델 카드에 대한 정보를 제공해 주세요. 다음과 같은 세부사항을 포함해야 합니다.  이 정보를 기반으로 모델 카드의 내용을 한국어로 생성하여주세요.
+
+개발자 정보: 모델을 개발한 개인이나 팀에 대한 정보입니다. 이는 모델의 신뢰성을 높이고, 사용자가 추가적인 질문이나 피드백을 제공할 수 있는 경로를 제공합니다.
+
+모델 설명 및 특징: 모델의 목적, 기능, 그리고 어떤 문제를 해결하기 위해 설계되었는지를 설명합니다. 이 정보는 사용자가 모델의 적합성을 판단하는 데 도움이 됩니다.
+
+아키텍처 및 파라미터 수: 모델의 구조(예: CNN, RNN, Transformer 등)와 모델 내의 학습 가능한 파라미터의 수를 나타냅니다. 이는 모델의 복잡성과 성능을 이해하는 데 중요한 요소입니다.
+
+입력 형식 및 최적화된 컨텍스트 길이: 모델이 처리할 수 있는 입력 데이터의 형식과, 최적의 성능을 위해 필요한 입력 데이터의 길이를 설명합니다. 이는 모델을 사용할 때 입력 데이터를 어떻게 준비해야 하는지를 알려줍니다.
+
+사용된 GPU 및 훈련 시간: 모델 훈련에 사용된 하드웨어(예: GPU 종류)와 훈련에 소요된 시간입니다. 이는 모델의 훈련 효율성을 평가하는 데 도움이 됩니다.
+
+훈련 데이터의 양 및 고유 토큰 수: 모델을 훈련시키는 데 사용된 데이터의 양과 데이터 내의 고유한 토큰(단어, 기호 등)의 수를 나타냅니다. 이는 모델의 일반화 능력과 데이터 다양성을 평가하는 데 중요한 정보입니다.
+
+출력 형식 및 구조: 모델이 생성하는 출력의 형식(예: 텍스트, 이미지, 숫자 등)과 구조를 설명합니다. 이는 사용자가 모델의 출력을 이해하고 활용하는 데 도움이 됩니다.
+
+모델의 상태 및 출시 날짜: 모델의 현재 상태(예: 연구 중, 프로덕션 사용 가능 등)와 모델이 공개된 날짜입니다. 이는 사용자가 모델의 최신성을 판단하는 데 도움이 됩니다.
+
+라이센스 정보: 모델 사용에 대한 법적 조건을 설명하는 라이센스 정보입니다. 이는 사용자가 모델을 어떻게 사용할 수 있는지를 이해하는 데 중요합니다.
+
+2025
+
+card
+
+데이타 카드 
+
+
+
+참조 템플릿: https://huggingface.co/datasets/microsoft/CoSAlign-Train
+업로드 하려고 하는 해당 AI 모델의 데이타  카드에 대한 정보를 제공해 주세요. 다음과 같은 세부사항을 포함해야 합니다.  이 정보를 기반으로 데이타 카드의 내용을 한국어로 생성하여주세요.
+
+Title: 데이터셋의 제목.
+Paper: 데이터셋과 관련된 논문 제목 및 발표 정보.
+Purpose: 데이터셋의 목적 및 사용 용도.
+Description: 데이터셋에 대한 상세 설명, 구성 요소 및 특징.
+Composition: 데이터셋의 구성 요소, 예를 들어 데이터 쌍의 수, 출처, 카테고리 등.
+Dataset Splits and License: 데이터셋의 분할 정보 (예: 훈련 세트, 검증 세트 등) 및 각 분할의 라이센스 정보.
+Applications: 데이터셋의 실제 적용 사례 및 사용 분야.
+Authors: 데이터셋을 개발한 저자 목록.
+Project URL: 데이터셋과 관련된 프로젝트의 웹사이트 링크.
+Citations: 데이터셋을 인용할 때 사용할 수 있는 형식.
+Limitations: 데이터셋의 한계나 주의사항.\begin{figure}[h]
+\centering
+\includegraphics[width=0.9\linewidth]{figures/mball_design.png}
+\caption{Overall system architecture of MBALL.}
+\label{fig:mball_architecture}
+\end{figure}
+
+Ethical Considerations: 데이터셋 사용 시 고려해야 할 윤리적 사항.
+Contact Information: 데이터셋에 대한 문의를 위한 연락처 정보.
+출처: 데이터셋의 출처 (예: 자체 제작, 크롤링, 구매 등)
+-	-	논문 요약 정리	
+위의 논문 내용으로부터 한글로 제목, 요점, 결론, 파급효과, 시사점, 관련 기사 링크 등을 한국어로 정리해주세요. 
+1. 학회명, 발표일자, 논문저자(예: 홍길동 외 3명), 1저자 소속, 학회 구분 (예: 컨퍼런스, 저널, arxiv), 요약/요점, 키워드, 주요 기여도, 파급효과, 시사점, 관련 웹주소 등을 한국어로 정리해주세요. 
+
+2. 이 연구논문을  기업과 같은 현장(필드)에서 사용하려고 할때의  장점, 단점, 보완점 등이 무엇인지 한국어로 말해주세요.
+
+-	-	
+AI 기본법
+
++ 04. 기타센싱
+
+1. 위의 내용으로부터  제공자, 제공처, 제시일, 제목, 요점 (요약한줄, 요점 포인트 3가지), 결론, 파급효과, 시사점, 관련 기사 링크 등을 한국어로 정리해주세요.
+
+-	-	Weekly Report 및 부서내 공유 위한 시스템 프롬프트 모음	
+1. AI 기사: 위의 내용을 한글로 제목, 요점, 파급효과, 결론, 향후방향, 시사점, 관련 주소 (예: 웹사이트, 기사 주소, 깃허브 주소등) 등을 한국어로 정리해주세요.
+2. PDF 문서: 첨부된 파일의 내용을 부서내에 공유하기 위한 보고서 형식으로 한국어로 요약 정리 해주세요. 
+3. Weekly report: 위의 각 3개 항목을 한국어로 각각 한줄 분량의 내용으로 요약 정리하여 주세요.
+4. A4 1장 보고서: 위의 내용을 윗분에게 보고하기 위한 A4 1장의 보고서 형태로 한국어로 요약해주세요.
+
+
+---------------------
+
+위의 내용을 참고하여 관련 연구논문의 초안을 만들어주세요. 
+
